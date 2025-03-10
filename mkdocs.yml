@@ -1,0 +1,46 @@
+site_name: Eigen Layer Docs
+site_description: Collection of notes from Eigen Layer
+site_author: KupiaSec
+
+theme:
+  name: material  # or your chosen theme
+  logo: assets/logo.png
+  favicon: assets/favicon.ico
+  custom_dir: docs/overrides
+  palette:
+    primary: indigo
+  features:
+    - content.code.copy
+    - header.autohide
+    - navigation.top
+    - navigation.footer
+
+docs_dir: docs
+
+plugins:
+  - search
+  - awesome-pages:
+      collapse_single_pages: true
+
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+nav:
+  - About: index.md
+  - ...
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/KupiaSec
+    - icon: fontawesome/brands/twitter
+      link: https://x.com/KupiaSecurity
+
+extra_css:
+  - stylesheets/extra.css
+
+copyright: "All content belongs to Eigen Labs"
