@@ -1,0 +1,3443 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Collection of notes from Eigen Layer">
+      
+      
+        <meta name="author" content="KupiaSec">
+      
+      
+      
+        <link rel="prev" href="../AllocationManager/">
+      
+      
+        <link rel="next" href="../EigenPod/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
+    
+    
+      
+        <title>DelegationManager - Eigen Layer Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#delegationmanager" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Eigen Layer Docs" class="md-header__button md-logo" aria-label="Eigen Layer Docs" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Eigen Layer Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              DelegationManager
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Eigen Layer Docs" class="md-nav__button md-logo" aria-label="Eigen Layer Docs" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    Eigen Layer Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Code
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Code
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Core
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Core
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/core/AVSDirectory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AVSDirectory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/core/AVSDirectoryStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AVSDirectoryStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/core/AllocationManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AllocationManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/core/AllocationManagerStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AllocationManagerStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/core/DelegationManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DelegationManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/core/DelegationManagerStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DelegationManagerStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/core/RewardsCoordinator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RewardsCoordinator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/core/RewardsCoordinatorStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RewardsCoordinatorStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/core/StrategyManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    StrategyManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/core/StrategyManagerStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    StrategyManagerStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Interfaces
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Interfaces
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IAVSDirectory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IAVSDirectory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IAVSRegistrar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IAVSRegistrar
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IAllocationManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IAllocationManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IBackingEigen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IBackingEigen
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IDelegationManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IDelegationManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IETHPOSDeposit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IETHPOSDeposit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IEigen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IEigen
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IEigenPod/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IEigenPod
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IEigenPodManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IEigenPodManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IPausable/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPausable
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IPauserRegistry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPauserRegistry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IPermissionController/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPermissionController
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IRewardsCoordinator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IRewardsCoordinator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/ISemVerMixin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ISemVerMixin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IShareManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IShareManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/ISignatureUtilsMixin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ISignatureUtilsMixin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IStrategy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IStrategy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IStrategyFactory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IStrategyFactory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IStrategyManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IStrategyManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Libraries
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Libraries
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/libraries/BeaconChainProofs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BeaconChainProofs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/libraries/BytesLib/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BytesLib
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/libraries/Endian/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Endian
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/libraries/Merkle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Merkle
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/libraries/OperatorSetLib/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OperatorSetLib
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/libraries/SlashingLib/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SlashingLib
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/libraries/Snapshots/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Snapshots
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Mixins
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Mixins
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/mixins/PermissionControllerMixin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PermissionControllerMixin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/mixins/SemVerMixin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SemVerMixin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/mixins/SignatureUtilsMixin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SignatureUtilsMixin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Permissions
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Permissions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/permissions/Pausable/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pausable
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/permissions/PauserRegistry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PauserRegistry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/permissions/PermissionController/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PermissionController
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/permissions/PermissionControllerStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PermissionControllerStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Pods
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Pods
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/pods/EigenPod/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenPod
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/pods/EigenPodManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenPodManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/pods/EigenPodManagerStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenPodManagerStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/pods/EigenPodPausingConstants/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenPodPausingConstants
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/pods/EigenPodStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenPodStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Strategies
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Strategies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/strategies/EigenStrategy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenStrategy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/strategies/StrategyBase/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    StrategyBase
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/strategies/StrategyBaseTVLLimits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    StrategyBaseTVLLimits
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/strategies/StrategyFactory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    StrategyFactory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/strategies/StrategyFactoryStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    StrategyFactoryStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Token
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            Token
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/token/BackingEigen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BackingEigen
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/token/Eigen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Eigen
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Docs
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Docs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Core
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Core
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AVSDirectory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AVSDirectory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AllocationManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AllocationManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    DelegationManager
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    DelegationManager
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#delegationmanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      DelegationManager
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prior-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prior Reading
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameterization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameterization
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#becoming-an-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Becoming an Operator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Becoming an Operator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#registerasoperator" class="md-nav__link">
+    <span class="md-ellipsis">
+      registerAsOperator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modifyoperatordetails" class="md-nav__link">
+    <span class="md-ellipsis">
+      modifyOperatorDetails
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updateoperatormetadatauri" class="md-nav__link">
+    <span class="md-ellipsis">
+      updateOperatorMetadataURI
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delegation-and-withdrawals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delegation and Withdrawals
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Delegation and Withdrawals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#legacy-and-post-slashing-withdrawals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Legacy and Post-Slashing Withdrawals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slashing-factors-and-scaling-shares" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slashing Factors and Scaling Shares
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delegateto" class="md-nav__link">
+    <span class="md-ellipsis">
+      delegateTo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#undelegate" class="md-nav__link">
+    <span class="md-ellipsis">
+      undelegate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redelegate" class="md-nav__link">
+    <span class="md-ellipsis">
+      redelegate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#queuewithdrawals" class="md-nav__link">
+    <span class="md-ellipsis">
+      queueWithdrawals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completequeuedwithdrawal" class="md-nav__link">
+    <span class="md-ellipsis">
+      completeQueuedWithdrawal
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completequeuedwithdrawals" class="md-nav__link">
+    <span class="md-ellipsis">
+      completeQueuedWithdrawals
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slashing-and-accounting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slashing and Accounting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Slashing and Accounting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#slashoperatorshares" class="md-nav__link">
+    <span class="md-ellipsis">
+      slashOperatorShares
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#increasedelegatedshares" class="md-nav__link">
+    <span class="md-ellipsis">
+      increaseDelegatedShares
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decreasedelegatedshares" class="md-nav__link">
+    <span class="md-ellipsis">
+      decreaseDelegatedShares
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EigenPod/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenPod
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EigenPodManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenPodManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RewardsCoordinator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RewardsCoordinator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../StrategyManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    StrategyManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_8" id="__nav_3_1_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Accounting
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_8">
+            <span class="md-nav__icon md-icon"></span>
+            Accounting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../accounting/SharesAccounting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Shares Accounting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../accounting/SharesAccountingEdgeCases/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Shares Accounting Edge Cases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../accounting/SlashingEdgeCase/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dual Slashing Edge Case
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experimental/AVS-Guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Purpose
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../permissions/PermissionController/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PermissionController
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#delegationmanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      DelegationManager
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prior-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prior Reading
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameterization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameterization
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#becoming-an-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Becoming an Operator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Becoming an Operator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#registerasoperator" class="md-nav__link">
+    <span class="md-ellipsis">
+      registerAsOperator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modifyoperatordetails" class="md-nav__link">
+    <span class="md-ellipsis">
+      modifyOperatorDetails
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updateoperatormetadatauri" class="md-nav__link">
+    <span class="md-ellipsis">
+      updateOperatorMetadataURI
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delegation-and-withdrawals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delegation and Withdrawals
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Delegation and Withdrawals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#legacy-and-post-slashing-withdrawals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Legacy and Post-Slashing Withdrawals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slashing-factors-and-scaling-shares" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slashing Factors and Scaling Shares
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delegateto" class="md-nav__link">
+    <span class="md-ellipsis">
+      delegateTo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#undelegate" class="md-nav__link">
+    <span class="md-ellipsis">
+      undelegate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redelegate" class="md-nav__link">
+    <span class="md-ellipsis">
+      redelegate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#queuewithdrawals" class="md-nav__link">
+    <span class="md-ellipsis">
+      queueWithdrawals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completequeuedwithdrawal" class="md-nav__link">
+    <span class="md-ellipsis">
+      completeQueuedWithdrawal
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completequeuedwithdrawals" class="md-nav__link">
+    <span class="md-ellipsis">
+      completeQueuedWithdrawals
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slashing-and-accounting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slashing and Accounting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Slashing and Accounting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#slashoperatorshares" class="md-nav__link">
+    <span class="md-ellipsis">
+      slashOperatorShares
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#increasedelegatedshares" class="md-nav__link">
+    <span class="md-ellipsis">
+      increaseDelegatedShares
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decreasedelegatedshares" class="md-nav__link">
+    <span class="md-ellipsis">
+      decreaseDelegatedShares
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>DelegationManager</h1>
+
+<h2 id="delegationmanager">DelegationManager</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../src/contracts/core/DelegationManager.sol"><code>DelegationManager.sol</code></a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../../src/contracts/core/DelegationManagerStorage.sol"><code>DelegationManagerStorage.sol</code></a></td>
+<td>state variables</td>
+</tr>
+<tr>
+<td><a href="../../src/contracts/interfaces/IDelegationManager.sol"><code>IDelegationManager.sol</code></a></td>
+<td>interface</td>
+</tr>
+</tbody>
+</table>
+<p>Libraries and Mixins:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../src/contracts/mixins/PermissionControllerMixin.sol"><code>PermissionControllerMixin.sol</code></a></td>
+<td>account delegation</td>
+</tr>
+<tr>
+<td><a href="../../src/contracts/mixins/SignatureUtils.sol"><code>SignatureUtils.sol</code></a></td>
+<td>signature validation</td>
+</tr>
+<tr>
+<td><a href="../../src/contracts/permissions/Pausable.sol"><code>Pausable.sol</code></a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../../src/contracts/libraries/SlashingLib.sol"><code>SlashingLib.sol</code></a></td>
+<td>slashing math</td>
+</tr>
+<tr>
+<td><a href="../../src/contracts/libraries/Snapshots.sol"><code>Snapshots.sol</code></a></td>
+<td>historical state</td>
+</tr>
+</tbody>
+</table>
+<h2 id="prior-reading">Prior Reading</h2>
+<ul>
+<li><a href="https://github.com/eigenfoundation/ELIPs/blob/main/ELIPs/ELIP-002.md">ELIP-002: Slashing via Unique Stake and Operator Sets</a></li>
+<li><a href="../accounting/SharesAccounting/">Shares Accounting</a></li>
+</ul>
+<h2 id="overview">Overview</h2>
+<p>The <code>DelegationManager</code> is the intersection between the two sides of the protocol. It (i) allows stakers to delegate/undelegate to/from operators, (ii) handles withdrawals and withdrawal processing for assets in both the <code>StrategyManager</code> and <code>EigenPodManager</code>, and (iii) manages accounting around slashing for stakers and operators.</p>
+<p>When operators are slashed by AVSs, it receives share burning directives from the <code>AllocationManager</code>. When stakers deposit assets using the <code>StrategyManager/EigenPodManager</code>, it tracks share/delegation accounting changes. The <code>DelegationManager</code> combines inputs from both sides of the protocol into a staker's "deposit scaling factor," which serves as the primary conversion vehicle between a staker's <em>raw deposited assets</em> and the <em>amount they can withdraw</em>.</p>
+<p>The <code>DelegationManager's</code> responsibilities can be broken down into the following concepts:
+* <a href="#becoming-an-operator">Becoming an Operator</a>
+* <a href="#delegation-and-withdrawals">Delegation and Withdrawals</a>
+* <a href="#slashing-and-accounting">Slashing and Accounting</a></p>
+<h2 id="parameterization">Parameterization</h2>
+<ul>
+<li><code>MIN_WITHDRAWAL_DELAY_BLOCKS</code>: The delay in blocks before withdrawals can be completed.<ul>
+<li>Mainnet: <code>100800 blocks</code> (14 days).</li>
+<li>Testnet: <code>50 blocks</code> (10 minutes).</li>
+</ul>
+</li>
+<li><code>beaconChainETHStrategy</code>: a pseudo strategy used to represent beacon chain ETH internally. This is not a real contract!<ul>
+<li>Value: <code>0xbeaC0eeEeeeeEEeEeEEEEeeEEeEeeeEeeEEBEaC0</code></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="becoming-an-operator">Becoming an Operator</h2>
+<p>The <code>DelegationManager</code> tracks operator-related state in the following mappings:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">/// @notice Returns the `operator` a `staker` is delegated to, or address(0) if not delegated.</span>
+<span class="c1">/// Note: operators are delegated to themselves</span>
+<span class="kt">mapping</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">staker</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>delegatedTo<span class="p">;</span>
+
+<span class="c1">/// @notice Returns the operator details for a given `operator`.</span>
+<span class="c1">/// Note: two of the `OperatorDetails` fields are deprecated. The only relevant field</span>
+<span class="c1">/// is `OperatorDetails.delegationApprover`.</span>
+<span class="kt">mapping</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span>OperatorDetails<span class="p">)</span><span class="w"> </span><span class="kt">internal</span><span class="w"> </span>_operatorDetails<span class="p">;</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @notice Tracks the current balance of shares an `operator` is delegated according to each `strategy`. </span>
+<span class="cm"> * Updated by both the `StrategyManager` and `EigenPodManager` when a staker&#39;s delegatable balance changes,</span>
+<span class="cm"> * and by the `AllocationManager` when the `operator` is slashed.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @dev The following invariant should hold for each `strategy`:</span>
+<span class="cm"> *</span>
+<span class="cm"> * operatorShares[operator] = sum(withdrawable shares of all stakers delegated to operator)</span>
+<span class="cm"> */</span>
+<span class="kt">mapping</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kt">mapping</span><span class="p">(</span>IStrategy<span class="w"> </span>strategy<span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">shares</span><span class="p">))</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>operatorShares<span class="p">;</span>
+</code></pre></div>
+<p><strong>Methods</strong>:
+* <a href="#registerasoperator"><code>DelegationManager.registerAsOperator</code></a>
+* <a href="#modifyoperatordetails"><code>DelegationManager.modifyOperatorDetails</code></a>
+* <a href="#updateoperatormetadatauri"><code>DelegationManager.updateOperatorMetadataURI</code></a></p>
+<h4 id="registerasoperator"><code>registerAsOperator</code></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice Registers the caller as an operator in EigenLayer.</span>
+<span class="cm"> * @param initDelegationApprover is an address that, if set, must provide a signature when stakers delegate</span>
+<span class="cm"> * to an operator.</span>
+<span class="cm"> * @param allocationDelay The delay before allocations take effect.</span>
+<span class="cm"> * @param metadataURI is a URI for the operator&#39;s metadata, i.e. a link providing more details on the operator.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @dev Once an operator is registered, they cannot &#39;deregister&#39; as an operator, and they will forever be considered &quot;delegated to themself&quot;.</span>
+<span class="cm"> * @dev This function will revert if the caller is already delegated to an operator.</span>
+<span class="cm"> * @dev Note that the `metadataURI` is *never stored * and is only emitted in the `OperatorMetadataURIUpdated` event</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">registerAsOperator</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">initDelegationApprover</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint32</span><span class="w"> </span><span class="nv">allocationDelay</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="nv">calldata</span><span class="w"> </span>metadataURI
+<span class="p">)</span><span class="w"> </span><span class="kt">external</span><span class="w"> </span>nonReentrant<span class="p">;</span>
+</code></pre></div>
+<p>Registers the caller as an operator in EigenLayer. The new operator provides the following input parameters:
+* <code>address initDelegationApprover</code>: <em>(OPTIONAL)</em> if set to a non-zero address, this address must sign and approve new delegation from stakers to this operator (See <a href="#delegateto"><code>delegateTo</code></a>)
+* <code>uint32 allocationDelay</code>: the delay (in blocks) before slashable stake allocations will take effect. This is passed to the <code>AllocationManager</code> (See <a href="../AllocationManager/#setallocationdelay"><code>AllocationManager.md#setAllocationDelay</code></a>)
+* <code>string calldata metadataURI</code>: emits this input in the event <code>OperatorMetadataURIUpdated</code>. Does not store the value anywhere.</p>
+<p><code>registerAsOperator</code> cements the operator's delegation approver and allocation delay in storage, and self-delegates the operator to themselves - permanently marking the caller as an operator. They cannot "deregister" as an operator - however, if they have deposited funds, they can still withdraw them (See <a href="#delegation-and-withdrawals">Delegation and Withdrawals</a>).</p>
+<p><em>Effects</em>:
+* Sets <code>_operatorDetails[operator].delegationApprover</code>. Note that the other <code>OperatorDetails</code> fields are deprecated; only the <code>delegationApprover</code> is used.
+* Delegates the operator to themselves
+    * Tabulates any deposited shares across the <code>EigenPodManager</code> and <code>StrategyManager</code>, and delegates these shares to themselves
+    * For each strategy in which the operator holds assets, updates the operator's <code>depositScalingFactor</code> for that strategy</p>
+<p><em>Requirements</em>:
+* Caller MUST NOT already be delegated
+* Pause status MUST NOT be set: <code>PAUSED_NEW_DELEGATION</code>
+* For each strategy in which the operator holds assets, their <code>slashingFactor</code> for that strategy MUST be non-zero.</p>
+<h4 id="modifyoperatordetails"><code>modifyOperatorDetails</code></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice Updates an operator&#39;s stored `delegationApprover`.</span>
+<span class="cm"> * @param operator is the operator to update the delegationApprover for</span>
+<span class="cm"> * @param newDelegationApprover is the new delegationApprover for the operator</span>
+<span class="cm"> *</span>
+<span class="cm"> * @dev The caller must have previously registered as an operator in EigenLayer.</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">modifyOperatorDetails</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">newDelegationApprover</span>
+<span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">external</span><span class="w"> </span>
+<span class="w">    </span>checkCanCall<span class="p">(</span>operator<span class="p">)</span>
+<span class="w">    </span>nonReentrant
+</code></pre></div>
+<p><em>Note: this method can be called directly by an operator, or by a caller authorized by the operator. See <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a> for details.</em></p>
+<p>Allows an operator to update their stored <code>delegationApprover</code>.</p>
+<p><em>Requirements</em>:
+* <code>address operator</code> MUST already be an operator.
+* Caller MUST be authorized: either the operator themselves, or an admin/appointee (see <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a>)</p>
+<h4 id="updateoperatormetadatauri"><code>updateOperatorMetadataURI</code></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice Called by an operator to emit an `OperatorMetadataURIUpdated` event indicating the information has updated.</span>
+<span class="cm"> * @param operator The operator to update metadata for</span>
+<span class="cm"> * @param metadataURI The URI for metadata associated with an operator</span>
+<span class="cm"> * @dev Note that the `metadataURI` is *never stored * and is only emitted in the `OperatorMetadataURIUpdated` event</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">updateOperatorMetadataURI</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="nv">calldata</span><span class="w"> </span>metadataURI
+<span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">external</span><span class="w"> </span>
+<span class="w">    </span>checkCanCall<span class="p">(</span>operator<span class="p">)</span>
+</code></pre></div>
+<p><em>Note: this method can be called directly by an operator, or by a caller authorized by the operator. See <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a> for details.</em></p>
+<p>Allows an operator to emit an <code>OperatorMetadataURIUpdated</code> event. No other state changes occur.</p>
+<p><em>Requirements</em>:
+* <code>address operator</code> MUST already be an operator.
+* Caller MUST be authorized: either the operator themselves, or an admin/appointee (see <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a>)</p>
+<hr />
+<h2 id="delegation-and-withdrawals">Delegation and Withdrawals</h2>
+<p><strong>Concepts</strong>:
+* <a href="../accounting/SharesAccounting/">Shares Accounting</a>
+* <a href="#legacy-and-post-slashing-withdrawals">Legacy and Post-Slashing Withdrawals</a>
+* <a href="#slashing-factors-and-scaling-shares">Slashing Factors and Scaling Shares</a></p>
+<p><strong>Methods</strong>:
+* <a href="#delegateto"><code>DelegationManager.delegateTo</code></a>
+* <a href="#undelegate"><code>DelegationManager.undelegate</code></a>
+* <a href="#redelegate"><code>DelegationManager.redelegate</code></a>
+* <a href="#queuewithdrawals"><code>DelegationManager.queueWithdrawals</code></a>
+* <a href="#completequeuedwithdrawal"><code>DelegationManager.completeQueuedWithdrawal</code></a>
+* <a href="#completequeuedwithdrawals"><code>DelegationManager.completeQueuedWithdrawals</code></a></p>
+<h4 id="legacy-and-post-slashing-withdrawals">Legacy and Post-Slashing Withdrawals</h4>
+<p>The <code>DelegationManager</code> tracks withdrawal-related state in the following mappings:</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @dev A struct representing an existing queued withdrawal. After the withdrawal delay has elapsed, this withdrawal can be completed via `completeQueuedWithdrawal`.</span>
+<span class="cm"> * A `Withdrawal` is created by the `DelegationManager` when `queueWithdrawals` is called. The `withdrawalRoots` hashes returned by `queueWithdrawals` can be used</span>
+<span class="cm"> * to fetch the corresponding `Withdrawal` from storage (via `queuedWithdrawals`).</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param staker The address that queued the withdrawal</span>
+<span class="cm"> * @param delegatedTo The address that the staker was delegated to at the time the withdrawal was queued. Used to determine if additional slashing occurred before</span>
+<span class="cm"> * this withdrawal became completable.</span>
+<span class="cm"> * @param withdrawer The address that will call the contract to complete the withdrawal. Note that this will always equal `staker`; alternate withdrawers are not</span>
+<span class="cm"> * supported at this time.</span>
+<span class="cm"> * @param nonce The staker&#39;s `cumulativeWithdrawalsQueued` at time of queuing. Used to ensure withdrawals have unique hashes.</span>
+<span class="cm"> * @param startBlock The block number when the withdrawal was queued.</span>
+<span class="cm"> * @param strategies The strategies requested for withdrawal when the withdrawal was queued</span>
+<span class="cm"> * @param scaledShares The staker&#39;s deposit shares requested for withdrawal, scaled by the staker&#39;s `depositScalingFactor`. Upon completion, these will be</span>
+<span class="cm"> * scaled by the appropriate slashing factor as of the withdrawal&#39;s completable block. The result is what is actually withdrawable.</span>
+<span class="cm"> */</span>
+<span class="kt">struct</span><span class="w"> </span><span class="nv">Withdrawal</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">staker</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">delegatedTo</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">withdrawer</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">nonce</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32</span><span class="w"> </span><span class="nv">startBlock</span><span class="p">;</span>
+<span class="w">    </span>IStrategy<span class="p">[]</span><span class="w"> </span>strategies<span class="p">;</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="p">[]</span><span class="w"> </span>scaledShares<span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">/// @dev Returns whether a withdrawal is pending for a given `withdrawalRoot`.</span>
+<span class="c1">/// @dev This variable will be deprecated in the future, values should only be read or deleted.</span>
+<span class="kt">mapping</span><span class="p">(</span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">withdrawalRoot</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nv">pending</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>pendingWithdrawals<span class="p">;</span>
+
+<span class="c1">/// @notice Returns the total number of withdrawals that have been queued for a given `staker`.</span>
+<span class="c1">/// @dev This only increments (doesn&#39;t decrement), and is used to help ensure that otherwise identical withdrawals have unique hashes.</span>
+<span class="kt">mapping</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">staker</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">totalQueued</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>cumulativeWithdrawalsQueued<span class="p">;</span>
+
+<span class="c1">/// @notice Returns a list of queued withdrawals for a given `staker`.</span>
+<span class="c1">/// @dev Entries are removed when the withdrawal is completed.</span>
+<span class="c1">/// @dev This variable only reflects withdrawals that were made after the slashing release.</span>
+<span class="kt">mapping</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">staker</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span>EnumerableSet<span class="p">.</span>Bytes32Set<span class="w"> </span>withdrawalRoots<span class="p">)</span><span class="w"> </span><span class="kt">internal</span><span class="w"> </span>_stakerQueuedWithdrawalRoots<span class="p">;</span>
+
+<span class="c1">/// @notice Returns the details of a queued withdrawal given by `withdrawalRoot`.</span>
+<span class="c1">/// @dev This variable only reflects withdrawals that were made after the slashing release.</span>
+<span class="kt">mapping</span><span class="p">(</span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">withdrawalRoot</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span>Withdrawal<span class="w"> </span>withdrawal<span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>queuedWithdrawals<span class="p">;</span>
+
+<span class="c1">/// @notice Contains history of the total cumulative staker withdrawals for an operator and a given strategy.</span>
+<span class="c1">/// Used to calculate burned StrategyManager shares when an operator is slashed.</span>
+<span class="c1">/// @dev Stores scaledShares instead of total withdrawn shares to track current slashable shares, dependent on the maxMagnitude</span>
+<span class="kt">mapping</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kt">mapping</span><span class="p">(</span>IStrategy<span class="w"> </span>strategy<span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span>Snapshots<span class="p">.</span>DefaultZeroHistory<span class="p">))</span><span class="w"> </span><span class="kt">internal</span>
+<span class="w">    </span>_cumulativeScaledSharesHistory<span class="p">;</span>
+</code></pre></div>
+<p>Prior to the slashing release, withdrawals were only stored as hashes in the <code>pendingWithdrawals</code> mapping. </p>
+<p>With the slashing release, withdrawals are now stored entirely in state, and two new mappings have been added to support this:
+* <code>_stakedQueuedWithdrawalRoots</code>: a list of all the currently-queued withdrawal hashes belonging to a staker
+* <code>queuedWithdrawals</code>: maps queued withdrawal hash to <code>Withdrawal</code> struct</p>
+<p>Legacy withdrawals remain completable using the same methods as new withdrawals. The primary difference between the two is that it is not possible to query the corresponding <code>Withdrawal</code> struct for a legacy withdrawal hash. When determining what <code>Withdrawal</code> struct to supply to the contract to complete a legacy withdrawal, the caller will need to derive the original <code>Withdrawal</code> struct generated when the withdrawal was queued.</p>
+<h4 id="slashing-factors-and-scaling-shares">Slashing Factors and Scaling Shares</h4>
+<p><em>See the <a href="../accounting/SharesAccounting/">Shares Accounting</a> doc for a more thorough explanation with examples.</em></p>
+<p>Throughout the <code>DelegationManager</code>, a staker's <em>deposit shares</em> can be converted into their current <em>withdrawable shares</em> by applying two factors: the <em>slashing factor</em> and the <em>deposit scaling factor</em>. These two values are scaling factors that act as numerators when scaling shares. By default, these values start at <code>1 WAD</code> (<code>1e18</code>). <code>1 WAD</code> also acts as the denominator when scaling.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">/// @dev All scaling factors have `1e18` as an initial/default value. This value is represented</span>
+<span class="c1">/// by the constant `WAD`, which is used to preserve precision with uint256 math.</span>
+<span class="c1">///</span>
+<span class="c1">/// When applying scaling factors, they are typically multiplied/divided by `WAD`, allowing this</span>
+<span class="c1">/// constant to act as a &quot;1&quot; in mathematical formulae.</span>
+<span class="kt">uint64</span><span class="w"> </span><span class="nv">constant</span><span class="w"> </span>WAD<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">1</span>e18<span class="p">;</span>
+</code></pre></div>
+<p>The <em>deposit scaling factor</em> is represented in <code>DelegationManager</code> storage, and can be thought of as a way to normalize newly-deposited shares using the <em>current</em> slashing factor, so that <em>future</em> withdrawals can be scaled appropriately if the slashing factor has changed:</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/*</span>
+<span class="cm"> * There are 2 types of shares:</span>
+<span class="cm"> *      1. deposit shares</span>
+<span class="cm"> *          - These can be converted to an amount of tokens given a strategy</span>
+<span class="cm"> *              - by calling `sharesToUnderlying` on the strategy address (they&#39;re already tokens </span>
+<span class="cm"> *              in the case of EigenPods)</span>
+<span class="cm"> *          - These live in the storage of the EigenPodManager and individual StrategyManager strategies </span>
+<span class="cm"> *      2. withdrawable shares</span>
+<span class="cm"> *          - For a staker, this is the amount of shares that they can withdraw</span>
+<span class="cm"> *          - For an operator, the shares delegated to them are equal to the sum of their stakers&#39;</span>
+<span class="cm"> *            withdrawable shares</span>
+<span class="cm"> *</span>
+<span class="cm"> * Along with a slashing factor, the DepositScalingFactor is used to convert between the two share types.</span>
+<span class="cm"> */</span>
+<span class="kt">struct</span><span class="w"> </span><span class="nv">DepositScalingFactor</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">_scalingFactor</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">/// @notice Returns the scaling factor applied to a `staker` for a given `strategy`</span>
+<span class="kt">mapping</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">staker</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kt">mapping</span><span class="p">(</span>IStrategy<span class="w"> </span>strategy<span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span>DepositScalingFactor<span class="p">))</span><span class="w"> </span><span class="kt">internal</span><span class="w"> </span>_depositScalingFactor<span class="p">;</span>
+</code></pre></div>
+<p>Calculating the <em>slashing factor</em> varies depending on the strategy in question. <em>For all strategies</em>, the slashing factor is the max magnitude of the staker's delegated <code>operator</code> in the <code>AllocationManager</code> (See <a href="../AllocationManager/#max-vs-encumbered-magnitude">Max vs Encumbered Magnitude</a>). If the staker is NOT delegated, this is <code>WAD</code> (aka "1").</p>
+<p><em>For the <code>beaconChainETHStrategy</code></em>, the slashing factor <em>also</em> includes the staker's <code>beaconChainSlashingFactor</code>, which acts like the <code>operator's</code> max magnitude, but for a staker's beacon chain assets. This means that, for the <code>beaconChainETHStrategy</code> specifically, <em>slashing factors</em> can be applied because of EITHER/BOTH:
+* <code>operator</code> got slashed for this strategy by an AVS
+* <code>staker</code> got slashed on the beacon chain</p>
+<p>From <code>DelegationManager.sol</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">/// @dev Calculate the amount of slashing to apply to the staker&#39;s shares</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">_getSlashingFactor</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">staker</span><span class="p">,</span>
+<span class="w">    </span>IStrategy<span class="w"> </span>strategy<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint64</span><span class="w"> </span><span class="nv">operatorMaxMagnitude</span>
+<span class="p">)</span><span class="w"> </span><span class="kt">internal</span><span class="w"> </span>view<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint256</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">if</span><span class="w"> </span><span class="p">(</span>strategy<span class="w"> </span><span class="o">==</span><span class="w"> </span>beaconChainETHStrategy<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">uint64</span><span class="w"> </span><span class="nv">beaconChainSlashingFactor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>eigenPodManager<span class="p">.</span>beaconChainSlashingFactor<span class="p">(</span>staker<span class="p">);</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span>operatorMaxMagnitude<span class="p">.</span>mulWad<span class="p">(</span>beaconChainSlashingFactor<span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">return</span><span class="w"> </span>operatorMaxMagnitude<span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="delegateto"><code>delegateTo</code></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// @notice Struct that bundles together a signature and an expiration time for the signature. Used primarily for stack management.</span>
+<span class="kt">struct</span><span class="w"> </span><span class="nv">SignatureWithExpiry</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// the signature itself, formatted as a single bytes object</span>
+<span class="w">    </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">signature</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// the expiration timestamp (UTC) of the signature</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">expiry</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @notice Caller delegates their stake to an operator.</span>
+<span class="cm"> * @param operator The account (`msg.sender`) is delegating its assets to for use in serving applications built on EigenLayer.</span>
+<span class="cm"> * @param approverSignatureAndExpiry (optional) Verifies the operator approves of this delegation</span>
+<span class="cm"> * @param approverSalt (optional) A unique single use value tied to an individual signature.</span>
+<span class="cm"> * @dev The signature/salt are used ONLY if the operator has configured a delegationApprover.</span>
+<span class="cm"> * If they have not, these params can be left empty.</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">delegateTo</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span>SignatureWithExpiry<span class="w"> </span><span class="kt">memory</span><span class="w"> </span>approverSignatureAndExpiry<span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">approverSalt</span>
+<span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>nonReentrant
+</code></pre></div>
+<p>Allows a staker to delegate their assets to an operator. Delegation is all-or-nothing: when a staker delegates to an operator, they delegate ALL their assets. Stakers can only be delegated to one operator at a time.</p>
+<p>For each strategy the staker has deposit shares in, the <code>DelegationManager</code> will:
+* Query the staker's deposit shares from the <code>StrategyManager/EigenPodManager</code>
+* Get the slashing factor for this <code>(staker, operator, strategy)</code> and use it to update the staker's deposit scaling factor (See <a href="#slashing-factors-and-scaling-shares">Slashing Factors and Scaling Shares</a>)
+* Add the deposit shares to the operator's <code>operatorShares</code> directly. <em>Note</em> that the initial delegation to an operator is a special case where deposit shares == withdrawable shares.</p>
+<p><em>Effects</em>:
+* Delegates the caller to the <code>operator</code>
+    * Tabulates any deposited shares across the <code>EigenPodManager</code> and <code>StrategyManager</code>, and delegates these shares to the <code>operator</code>
+    * For each strategy in which the caller holds assets, updates the caller's <code>depositScalingFactor</code> for that strategy</p>
+<p><em>Requirements</em>:
+* The caller MUST NOT already be delegated to an operator
+* The <code>operator</code> MUST already be an operator
+* If the <code>operator</code> has a <code>delegationApprover</code>, the caller MUST provide a valid <code>approverSignatureAndExpiry</code> and <code>approverSalt</code>
+* Pause status MUST NOT be set: <code>PAUSED_NEW_DELEGATION</code>
+* For each strategy in which the staker holds assets, the <code>slashingFactor</code> for that strategy MUST be non-zero.</p>
+<h4 id="undelegate"><code>undelegate</code></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice Undelegates the staker from their operator and queues a withdrawal for all of their shares</span>
+<span class="cm"> * @param staker The account to be undelegated</span>
+<span class="cm"> * @return withdrawalRoots The roots of the newly queued withdrawals, if a withdrawal was queued. Returns </span>
+<span class="cm"> * an empty array if none was queued.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @dev Reverts if the `staker` is also an operator, since operators are not allowed to undelegate from themselves.</span>
+<span class="cm"> * @dev Reverts if the caller is not the staker, nor the operator who the staker is delegated to, nor the operator&#39;s specified &quot;delegationApprover&quot;</span>
+<span class="cm"> * @dev Reverts if the `staker` is not delegated to an operator</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">undelegate</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">staker</span>
+<span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>nonReentrant
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bytes32</span><span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>withdrawalRoots<span class="p">);</span>
+</code></pre></div>
+<p><em>Note: this method can be called directly by an operator, or by a caller authorized by the operator. See <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a> for details.</em></p>
+<p><code>undelegate</code> can be called EITHER by a staker to undelegate themselves, OR by an operator to force-undelegate a staker from them. Force-undelegation is primarily useful if an operator has a <code>delegationApprover</code>, as this role is the only way to prevent a staker from delegating back to the operator once force-undelegated.</p>
+<p>Undelegation immediately sets the staker's delegated operator to 0, decreases the prior operator's delegated shares, and queues withdrawals for all of the staker's deposited assets. For UX reasons, one withdrawal is queued for each strategy in which the staker has deposited assets. Queued withdrawals mimic the behavior of the <a href="#queuewithdrawals"><code>queueWithdrawals</code></a> method; see that method's documentation for details.</p>
+<p>Just as with a normal queued withdrawal, these withdrawals can be completed by the staker after <code>MIN_WITHDRAWAL_DELAY_BLOCKS</code>. These withdrawals do not require the staker to "fully exit" from the system -- the staker may choose to keep their assets in the system once withdrawals are completed (See <a href="#completequeuedwithdrawal"><code>completeQueuedWithdrawal</code></a> for details).</p>
+<p><em>Effects</em>: 
+* The <code>staker</code> is undelegated from their operator
+* If the <code>staker</code> has no deposit shares, there is no withdrawal queued or further effects
+* For each strategy held by the <code>staker</code>, a <code>Withdrawal</code> is queued:
+    * <em>Deposit shares</em> are removed from the staker's deposit share balances
+        * See <a href="../EigenPodManager/#removedepositshares"><code>EigenPodManager.removeDepositShares</code></a>
+        * See <a href="../StrategyManager/#removedepositshares"><code>StrategyManager.removeDepositShares</code></a>
+    * <em>Deposit shares</em> are converted to <em>withdrawable shares</em> (See <a href="#slashing-factors-and-scaling-shares">Slashing Factors and Scaling Shares</a>). These are decremented from the operator's delegated shares.
+    * <em>Deposit shares</em> are converted to <em>scaled shares</em>  (See <a href="../accounting/SharesAccounting/#queue-withdrawal">Shares Accounting - Queue Withdrawals</a>), which are stored in the <code>Withdrawal</code> struct
+    * <em>Scaled shares</em> are pushed to <code>_cumulativeScaledSharesHistory</code>, which is used for burning slashed shares
+    * The <code>Withdrawal</code> is saved to storage
+        * The hash of the <code>Withdrawal</code> is marked as "pending"
+        * The hash of the <code>Withdrawal</code> is set in a mapping to the <code>Withdrawal</code> struct itself
+        * The hash of the <code>Withdrawal</code> is pushed to <code>_stakerQueuedWithdrawalRoots</code>
+    * The staker's withdrawal nonce is increased by 1 for each <code>Withdrawal</code></p>
+<p><em>Requirements</em>:
+* Pause status MUST NOT be set: <code>PAUSED_ENTER_WITHDRAWAL_QUEUE</code>
+* <code>staker</code> MUST be delegated to an operator
+* <code>staker</code> MUST NOT be an operator
+* <code>staker</code> parameter MUST NOT be zero
+* Caller MUST be authorized: either the <code>staker</code> themselves, their operator, their operator's <code>delegationApprover</code>, or their operator's admin/appointee (see <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a>)
+* See <a href="../EigenPodManager/#removedepositshares"><code>EigenPodManager.removeDepositShares</code></a>
+* See <a href="../StrategyManager/#removedepositshares"><code>StrategyManager.removeDepositShares</code></a></p>
+<h4 id="redelegate"><code>redelegate</code></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice Undelegates the staker from their current operator, and redelegates to `newOperator`</span>
+<span class="cm"> * Queues a withdrawal for all of the staker&#39;s withdrawable shares. These shares will only be</span>
+<span class="cm"> * delegated to `newOperator` AFTER the withdrawal is completed.</span>
+<span class="cm"> * @dev This method acts like a call to `undelegate`, then `delegateTo`</span>
+<span class="cm"> * @param newOperator the new operator that will be delegated all assets</span>
+<span class="cm"> * @dev NOTE: the following 2 params are ONLY checked if `newOperator` has a `delegationApprover`.</span>
+<span class="cm"> * If not, they can be left empty.</span>
+<span class="cm"> * @param newOperatorApproverSig A signature from the operator&#39;s `delegationApprover`</span>
+<span class="cm"> * @param approverSalt A unique single use value tied to the approver&#39;s signature</span>
+<span class="cm"> */</span>
+<span class="w"> </span><span class="kt">function</span><span class="w"> </span><span class="nv">redelegate</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">newOperator</span><span class="p">,</span>
+<span class="w">    </span>SignatureWithExpiry<span class="w"> </span><span class="kt">memory</span><span class="w"> </span>newOperatorApproverSig<span class="p">,</span>
+<span class="w">    </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">approverSalt</span>
+<span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">external</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bytes32</span><span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>withdrawalRoots<span class="p">);</span>
+</code></pre></div>
+<p><code>redelegate</code> is a convenience method that combines the effects of <code>undelegate</code> and <code>delegateTo</code>. <code>redelegate</code> allows a staker to switch their delegated operator to <code>newOperator</code> with a single call. <strong>Note</strong>, though, that the staker's assets will not be fully delegated to <code>newOperator</code> until the withdrawals queued during the undelegation portion of this method are completed.</p>
+<p><em>Effects</em>: 
+* See <a href="#delegateto"><code>delegateTo</code></a> and <a href="#undelegate"><code>undelegate</code></a></p>
+<p><em>Requirements</em>:
+* See <a href="#delegateto"><code>delegateTo</code></a> and <a href="#undelegate"><code>undelegate</code></a></p>
+<h4 id="queuewithdrawals"><code>queueWithdrawals</code></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @param strategies The strategies to withdraw from</span>
+<span class="cm"> * @param depositShares For each strategy, the number of deposit shares to withdraw. Deposit shares can</span>
+<span class="cm"> * be queried via `getDepositedShares`.</span>
+<span class="cm"> * NOTE: The number of shares ultimately received when a withdrawal is completed may be lower depositShares</span>
+<span class="cm"> * if the staker or their delegated operator has experienced slashing.</span>
+<span class="cm"> * @param __deprecated_withdrawer This field is ignored. The only party that may complete a withdrawal</span>
+<span class="cm"> * is the staker that originally queued it. Alternate withdrawers are not supported.</span>
+<span class="cm"> */</span>
+<span class="kt">struct</span><span class="w"> </span><span class="nv">QueuedWithdrawalParams</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span>IStrategy<span class="p">[]</span><span class="w"> </span>strategies<span class="p">;</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="p">[]</span><span class="w"> </span>depositShares<span class="p">;</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">__deprecated_withdrawer</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @notice Allows a staker to queue a withdrawal of their deposit shares. The withdrawal can be </span>
+<span class="cm"> * completed after the MIN_WITHDRAWAL_DELAY_BLOCKS via either of the completeQueuedWithdrawal methods.</span>
+<span class="cm"> * </span>
+<span class="cm"> * While in the queue, these shares are removed from the staker&#39;s balance, as well as from their operator&#39;s</span>
+<span class="cm"> * delegated share balance (if applicable). Note that while in the queue, deposit shares are still subject</span>
+<span class="cm"> * to slashing. If any slashing has occurred, the shares received may be less than the queued deposit shares.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @dev To view all the staker&#39;s strategies/deposit shares that can be queued for withdrawal, see `getDepositedShares`</span>
+<span class="cm"> * @dev To view the current conversion between a staker&#39;s deposit shares and withdrawable shares, see `getWithdrawableShares`</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">queueWithdrawals</span><span class="p">(</span>
+<span class="w">    </span>QueuedWithdrawalParams<span class="p">[]</span><span class="w"> </span>calldata<span class="w"> </span>queuedWithdrawalParams
+<span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">external</span><span class="w"> </span>
+<span class="w">    </span>onlyWhenNotPaused<span class="p">(</span>PAUSED_ENTER_WITHDRAWAL_QUEUE<span class="p">)</span>
+<span class="w">    </span>nonReentrant
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bytes32</span><span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="p">)</span>
+</code></pre></div>
+<p>Allows the caller to queue their deposit shares for withdrawal across any strategy. Withdrawals can be completed after <code>MIN_WITHDRAWAL_DELAY_BLOCKS</code>, by calling <a href="#completequeuedwithdrawal"><code>completeQueuedWithdrawal</code></a>. This method accepts <em>deposit shares</em> as input - however, the amounts received upon completion may be lower if the staker has experienced slashing (See <a href="../accounting/SharesAccounting/">Shares Accounting</a> and <a href="#slashing-factors-and-scaling-shares">Slashing Factors and Scaling Shares</a>).</p>
+<p>For each <code>QueuedWithdrawalParams</code> passed as input, a <code>Withdrawal</code> is created in storage (See <a href="#legacy-and-post-slashing-withdrawals">Legacy and Post-Slashing Withdrawals</a> for details on structure and querying). Queueing a withdrawal involves multiple transformations to a staker's <em>deposit shares</em>, serving a few different purposes:
+* The raw <em>deposit shares</em> are removed from the staker's deposit share balance in the corresponding share manager (<code>EigenPodManager</code> or <code>StrategyManager</code>).
+* <em>Scaled shares</em> are calculated by applying the staker's <em>deposit scaling factor</em> to their <em>deposit shares</em>. Scaled shares:
+    * are stored in the <code>Withdrawal</code> itself and used during withdrawal completion
+    * are added to the operator's <code>cumulativeScaledSharesHistory</code>, where they can be burned if slashing occurs while the withdrawal is in the queue
+* <em>Withdrawable shares</em> are calculated by applying both the staker's <em>deposit scaling factor</em> AND any appropriate <em>slashing factor</em> to the staker's <em>deposit shares</em>. These "currently withdrawable shares" are removed from the operator's delegated shares (if applicable).</p>
+<p>Note that the <code>QueuedWithdrawalParams.__deprecated_withdrawer</code> field is ignored. Originally, this was used to create withdrawals that could be completed by a third party. This functionality was removed during the M2 release due to growing concerns over the phish risk this presented. Until the slashing release, this field was explicitly checked for equivalence with <code>msg.sender</code>; however, at present it is ignored. All <code>Withdrawals</code> are created with <code>withdrawer == staker</code> regardless of this field's value.</p>
+<p><em>Effects</em>:
+* For each <code>QueuedWithdrawalParams</code> element:
+    * <em>Deposit shares</em> are removed from the staker's deposit share balances
+        * See <a href="../EigenPodManager/#removedepositshares"><code>EigenPodManager.removeDepositShares</code></a>
+        * See <a href="../StrategyManager/#removedepositshares"><code>StrategyManager.removeDepositShares</code></a>
+    * <em>Deposit shares</em> are converted to <em>withdrawable shares</em> (See <a href="#slashing-factors-and-scaling-shares">Slashing Factors and Scaling Deposits</a>). These are decremented from their operator's delegated shares (if applicable)
+    * <em>Deposit shares</em> are converted to <em>scaled shares</em>  (See <a href="../accounting/SharesAccounting/#queue-withdrawal">Shares Accounting - Queue Withdrawals</a>), which are stored in the <code>Withdrawal</code> struct
+    * If the caller is delegated to an operator, <em>scaled shares</em> are pushed to that operator's <code>_cumulativeScaledSharesHistory</code>, which may be burned if slashing occurs.
+    * The <code>Withdrawal</code> is saved to storage
+        * The hash of the <code>Withdrawal</code> is marked as "pending"
+        * The hash of the <code>Withdrawal</code> is set in a mapping to the <code>Withdrawal</code> struct itself
+        * The hash of the <code>Withdrawal</code> is pushed to <code>_stakerQueuedWithdrawalRoots</code>
+    * The staker's withdrawal nonce is increased by 1</p>
+<p><em>Requirements</em>:
+* Pause status MUST NOT be set: <code>PAUSED_ENTER_WITHDRAWAL_QUEUE</code>
+* For each <code>QueuedWithdrawalParams</code> element:
+    * <code>strategies.length</code> MUST equal <code>depositShares.length</code>
+    * The <code>withdrawer</code> MUST equal <code>msg.sender</code>
+    * <code>strategies.length</code> MUST NOT be equal to 0
+    * See <a href="../EigenPodManager/#removedepositshares"><code>EigenPodManager.removeDepositShares</code></a>
+    * See <a href="../StrategyManager/#removedepositshares"><code>StrategyManager.removeDepositShares</code></a></p>
+<h4 id="completequeuedwithdrawal"><code>completeQueuedWithdrawal</code></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @dev A struct representing an existing queued withdrawal. After the withdrawal delay has elapsed, this withdrawal can be completed via `completeQueuedWithdrawal`.</span>
+<span class="cm"> * A `Withdrawal` is created by the `DelegationManager` when `queueWithdrawals` is called. The `withdrawalRoots` hashes returned by `queueWithdrawals` can be used</span>
+<span class="cm"> * to fetch the corresponding `Withdrawal` from storage (via `getQueuedWithdrawal`).</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param staker The address that queued the withdrawal</span>
+<span class="cm"> * @param delegatedTo The address that the staker was delegated to at the time the withdrawal was queued. Used to determine if additional slashing occurred before</span>
+<span class="cm"> * this withdrawal became completable.</span>
+<span class="cm"> * @param withdrawer The address that will call the contract to complete the withdrawal. Note that this will always equal `staker`; alternate withdrawers are not</span>
+<span class="cm"> * supported at this time.</span>
+<span class="cm"> * @param nonce The staker&#39;s `cumulativeWithdrawalsQueued` at time of queuing. Used to ensure withdrawals have unique hashes.</span>
+<span class="cm"> * @param startBlock The block number when the withdrawal was queued.</span>
+<span class="cm"> * @param strategies The strategies requested for withdrawal when the withdrawal was queued</span>
+<span class="cm"> * @param scaledShares The staker&#39;s deposit shares requested for withdrawal, scaled by the staker&#39;s `depositScalingFactor`. Upon completion, these will be</span>
+<span class="cm"> * scaled by the appropriate slashing factor as of the withdrawal&#39;s completable block. The result is what is actually withdrawable.</span>
+<span class="cm"> */</span>
+<span class="kt">struct</span><span class="w"> </span><span class="nv">Withdrawal</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">staker</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">delegatedTo</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">withdrawer</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">nonce</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32</span><span class="w"> </span><span class="nv">startBlock</span><span class="p">;</span>
+<span class="w">    </span>IStrategy<span class="p">[]</span><span class="w"> </span>strategies<span class="p">;</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="p">[]</span><span class="w"> </span>scaledShares<span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @notice Used to complete a queued withdrawal</span>
+<span class="cm"> * @param withdrawal The withdrawal to complete</span>
+<span class="cm"> * @param tokens Array in which the i-th entry specifies the `token` input to the &#39;withdraw&#39; function of the i-th Strategy in the `withdrawal.strategies` array.</span>
+<span class="cm"> * @param tokens For each `withdrawal.strategies`, the underlying token of the strategy</span>
+<span class="cm"> * NOTE: if `receiveAsTokens` is false, the `tokens` array is unused and can be filled with default values. However, `tokens.length` MUST still be equal to `withdrawal.strategies.length`.</span>
+<span class="cm"> * NOTE: For the `beaconChainETHStrategy`, the corresponding `tokens` value is ignored (can be 0).</span>
+<span class="cm"> * @param receiveAsTokens If true, withdrawn shares will be converted to tokens and sent to the caller. If false, the caller receives shares that can be delegated to an operator.</span>
+<span class="cm"> * NOTE: if the caller receives shares and is currently delegated to an operator, the received shares are</span>
+<span class="cm"> * automatically delegated to the caller&#39;s current operator.</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">completeQueuedWithdrawal</span><span class="p">(</span>
+<span class="w">    </span>Withdrawal<span class="w"> </span>calldata<span class="w"> </span>withdrawal<span class="p">,</span>
+<span class="w">    </span>IERC20<span class="p">[]</span><span class="w"> </span>calldata<span class="w"> </span>tokens<span class="p">,</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nv">receiveAsTokens</span>
+<span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">external</span><span class="w"> </span>
+<span class="w">    </span>onlyWhenNotPaused<span class="p">(</span>PAUSED_EXIT_WITHDRAWAL_QUEUE<span class="p">)</span>
+<span class="w">    </span>nonReentrant
+</code></pre></div>
+<p><code>MIN_WITHDRAWAL_DELAY_BLOCKS</code> after queueing, a staker can complete a <code>Withdrawal</code> by calling this method. The staker can elect to receive <em>either</em> tokens OR shares depending on the value of the <code>receiveAsTokens</code> parameter. </p>
+<p>Before processing a withdrawal, this method will calculate the slashing factor at the withdrawal's completion block (<code>withdrawal.startBlock + MIN_WITHDRAWAL_DELAY_BLOCKS</code>), according to the operator that was delegated to when the withdrawal was queued (<code>withdrawal.delegatedTo</code>). This slashing factor is used to determine if any additional slashing occurred while the withdrawal was in the queue. If so, this slashing is applied now.</p>
+<p>For each <code>Withdrawal</code>, <code>withdrawal.scaledShares</code> are converted into <em>withdrawable shares</em>, accounting for any slashing that occurred during the withdrawal period (See <a href="../accounting/SharesAccounting/#complete-withdrawal">Shares Accounting - Complete Withdrawal</a>).</p>
+<p>If the staker chooses to receive the withdrawal <em>as tokens</em>, the withdrawable shares are converted to tokens via the corresponding share manager (<code>EigenPodManager</code>/<code>StrategyManager</code>), and sent to the caller.</p>
+<p>If the staker chooses to receive the withdrawal <em>as shares</em>, the withdrawable shares are credited to the staker via the corresponding share manager (<code>EigenPodManager</code>/<code>StrategyManager</code>). Additionally, if the caller is delegated to an operator, the new slashing factor for the given <code>(staker, operator, strategy)</code> determines how many shares are awarded to the operator (and how the staker's deposit scaling factor is updated) (See <a href="#slashing-factors-and-scaling-shares">Slashing Factors and Scaling Shares</a>). In receiving the withdrawal as shares, this amount is credited as deposit shares for the staker. Due to known rounding error, the amount of withdrawable shares after completing the withdrawal may be slightly less than what was originally withdrawable.</p>
+<p><strong>Note:</strong> if the staker (i) receives the withdrawal as shares, (ii) has <code>MAX_STAKER_STRATEGY_LIST_LENGTH</code> unique deposit strategies in the <code>StrategyManager</code>, and (iii) is withdrawing to a <code>StrategyManager</code> strategy in which they do not currently have shares, this will revert. The staker cannot withdraw such that their <code>stakerStrategyList</code> length exceeds the maximum; this withdrawal will have to be completed as tokens instead.</p>
+<p><strong>Note:</strong> if the staker receives a <code>beaconChainETHStrategy</code> withdrawal as tokens, the staker's <code>EigenPod</code> MUST have sufficient <code>withdrawableExecutionLayerGwei</code> to honor the withdrawal.</p>
+<p><em>Effects</em>:
+* The hash of the <code>Withdrawal</code> is removed from the pending withdrawals
+* The hash of the <code>Withdrawal</code> is removed from the enumerable set of staker queued withdrawals
+* The <code>Withdrawal</code> struct is removed from the queued withdrawals 
+* If <code>receiveAsTokens</code>:
+    * See <a href="../StrategyManager/#withdrawsharesastokens"><code>StrategyManager.withdrawSharesAsTokens</code></a>
+    * See <a href="../EigenPodManager/#withdrawsharesastokens"><code>EigenPodManager.withdrawSharesAsTokens</code></a>
+* If <code>!receiveAsTokens</code>:
+    * Withdrawable shares are awarded to the caller and delegated to the caller's current operator if applicable
+    * See <a href="../StrategyManager/#addshares"><code>StrategyManager.addShares</code></a>
+    * See <a href="../EigenPodManager/#addshares"><code>EigenPodManager.addShares</code></a></p>
+<p><em>Requirements</em>:
+* Pause status MUST NOT be set: <code>PAUSED_EXIT_WITHDRAWAL_QUEUE</code>
+* <code>tokens.length</code> must equal <code>withdrawal.strategies.length</code>
+* Caller MUST be the <code>staker/withdrawer</code> specified in the <code>Withdrawal</code>
+* At least <code>MIN_WITHDRAWAL_DELAY_BLOCKS</code> MUST have passed before <code>completeQueuedWithdrawal</code> is called
+* The hash of the passed-in <code>Withdrawal</code> MUST correspond to a pending withdrawal
+* If <code>receiveAsTokens</code>:
+    * The caller MUST pass in the underlying <code>IERC20[] tokens</code> being withdrawn in the appropriate order according to the strategies in the <code>Withdrawal</code>.
+    * See <a href="../StrategyManager/#withdrawsharesastokens"><code>StrategyManager.withdrawSharesAsTokens</code></a>
+    * See <a href="../EigenPodManager/#withdrawsharesastokens"><code>EigenPodManager.withdrawSharesAsTokens</code></a>
+* If <code>!receiveAsTokens</code>:
+    * See <a href="../StrategyManager/#addshares"><code>StrategyManager.addShares</code></a>
+    * See <a href="../EigenPodManager/#addshares"><code>EigenPodManager.addShares</code></a></p>
+<h4 id="completequeuedwithdrawals"><code>completeQueuedWithdrawals</code></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice Used to complete multiple queued withdrawals</span>
+<span class="cm"> * @param withdrawals Array of Withdrawals to complete. See `completeQueuedWithdrawal` for the usage of a single Withdrawal.</span>
+<span class="cm"> * @param tokens Array of tokens for each Withdrawal. See `completeQueuedWithdrawal` for the usage of a single array.</span>
+<span class="cm"> * @param receiveAsTokens Whether or not to complete each withdrawal as tokens. See `completeQueuedWithdrawal` for the usage of a single boolean.</span>
+<span class="cm"> * @dev See `completeQueuedWithdrawal` for relevant dev tags</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">completeQueuedWithdrawals</span><span class="p">(</span>
+<span class="w">    </span>Withdrawal<span class="p">[]</span><span class="w"> </span>calldata<span class="w"> </span>withdrawals<span class="p">,</span>
+<span class="w">    </span>IERC20<span class="p">[][]</span><span class="w"> </span>calldata<span class="w"> </span>tokens<span class="p">,</span>
+<span class="w">    </span><span class="kt">bool</span><span class="p">[]</span><span class="w"> </span>calldata<span class="w"> </span>receiveAsTokens
+<span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">external</span><span class="w"> </span>
+<span class="w">    </span>onlyWhenNotPaused<span class="p">(</span>PAUSED_EXIT_WITHDRAWAL_QUEUE<span class="p">)</span><span class="w"> </span>
+<span class="w">    </span>nonReentrant
+</code></pre></div>
+<p>This method is the plural version of <a href="#completequeuedwithdrawal"><code>completeQueuedWithdrawal</code></a>.</p>
+<hr />
+<h2 id="slashing-and-accounting">Slashing and Accounting</h2>
+<p>These methods are all called by other system contracts: the <code>AllocationManager</code> calls <code>slashOperatorShares</code> during slashing, and the <code>EigenPodManager/StrategyManager</code> call <code>increaseDelegatedShares/decreaseDelegatedShares</code> when stakers' deposit shares (or when beacon chain balance decreases occur).</p>
+<p><strong>Methods</strong>:
+* <a href="#slashoperatorshares"><code>DelegationManager.slashOperatorShares</code></a>
+* <a href="#increasedelegatedshares"><code>DelegationManager.increaseDelegatedShares</code></a>
+* <a href="#decreasedelegatedshares"><code>DelegationManager.decreaseDelegatedShares</code></a></p>
+<h4 id="slashoperatorshares"><code>slashOperatorShares</code></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice Decreases the operators shares in storage after a slash and increases the burnable shares by calling</span>
+<span class="cm"> * into either the StrategyManager or EigenPodManager (if the strategy is beaconChainETH).</span>
+<span class="cm"> * @param operator The operator to decrease shares for</span>
+<span class="cm"> * @param strategy The strategy to decrease shares for</span>
+<span class="cm"> * @param prevMaxMagnitude the previous maxMagnitude of the operator</span>
+<span class="cm"> * @param newMaxMagnitude the new maxMagnitude of the operator</span>
+<span class="cm"> * @dev Callable only by the AllocationManager</span>
+<span class="cm"> * @dev Note: Assumes `prevMaxMagnitude &lt;= newMaxMagnitude`. This invariant is maintained in</span>
+<span class="cm"> * the AllocationManager.</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">slashOperatorShares</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="p">,</span>
+<span class="w">    </span>IStrategy<span class="w"> </span>strategy<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint64</span><span class="w"> </span><span class="nv">prevMaxMagnitude</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint64</span><span class="w"> </span><span class="nv">newMaxMagnitude</span>
+<span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>onlyAllocationManager
+<span class="w">    </span>nonReentrant
+</code></pre></div>
+<p><em>See <a href="https://github.com/Layr-Labs/eigenlayer-contracts/blob/slashing-magnitudes/docs/core/accounting/SharesAccounting.md#slashing">Shares Accounting - Slashing</a> for a description of the accounting in this method.</em></p>
+<p>This method is called by the <code>AllocationManager</code> when processing an AVS's slash of an operator. Slashing occurs instantly, with this method directly reducing the operator's delegated shares proportional to the slash.</p>
+<p>Additionally, any <em>slashable shares</em> in the withdrawal queue are marked for burning according to the same slashing proportion (shares in the withdrawal queue remain slashable for <code>MIN_WITHDRAWAL_DELAY_BLOCKS</code>). For the slashed strategy, the corresponding share manager (<code>EigenPodManager/StrateyManager</code>) is called, increasing the burnable shares for that strategy.</p>
+<p><strong>Note</strong>: native ETH does not currently possess a burning mechanism, as this requires Pectra to be able to force exit validators. Currently, slashing for the <code>beaconChainETHStrategy</code> is realized by modifying the amount stakers are able to withdraw.</p>
+<p><em>Effects</em>:
+* The <code>operator's</code> <code>operatorShares</code> are reduced for the given <code>strategy</code>, according to the proportion given by <code>prevMaxMagnitude</code> and <code>newMaxMagnitude</code>
+* Any slashable shares in the withdrawal queue are marked for burning according to the same proportion
+* See <a href="../StrategyManager/#increaseBurnableShares"><code>StrategyManager.increaseBurnableShares</code></a>
+* See <a href="../EigenPodManager/#increaseBurnableShares"><code>EigenPodManager.increaseBurnableShares</code></a></p>
+<p><em>Requirements</em>:
+* The amount slashed from the operator must not result in underflow of their <code>operatorShares</code> for the given <code>strategy</code></p>
+<h4 id="increasedelegatedshares"><code>increaseDelegatedShares</code></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice Called by a share manager when a staker&#39;s deposit share balance in a strategy increases.</span>
+<span class="cm"> * This method delegates any new shares to an operator (if applicable), and updates the staker&#39;s </span>
+<span class="cm"> * deposit scaling factor regardless.</span>
+<span class="cm"> * @param staker The address whose deposit shares have increased</span>
+<span class="cm"> * @param strategy The strategy in which shares have been deposited</span>
+<span class="cm"> * @param prevDepositShares The number of deposit shares the staker had in the strategy prior to the increase</span>
+<span class="cm"> * @param addedShares The number of deposit shares added by the staker</span>
+<span class="cm"> *</span>
+<span class="cm"> * @dev Note that if either the staker&#39;s current operator has been slashed 100% for `strategy`, OR the</span>
+<span class="cm"> * staker has been slashed 100% on the beacon chain such that the calculated slashing factor is 0, this</span>
+<span class="cm"> * method WILL REVERT.</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">increaseDelegatedShares</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">staker</span><span class="p">,</span>
+<span class="w">    </span>IStrategy<span class="w"> </span>strategy<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">prevDepositShares</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">addedShares</span>
+<span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>onlyStrategyManagerOrEigenPodManager
+<span class="w">    </span>nonReentrant
+</code></pre></div>
+<p>Called by either the <code>StrategyManager</code> or <code>EigenPodManager</code> when a staker's deposit shares for one or more strategies increase.</p>
+<p>If the staker is delegated to an operator, the new deposit shares are directly added to that operator's <code>operatorShares</code>. Regardless of delegation status, the staker's deposit scaling factor is updated.</p>
+<p><strong>Note</strong> that if either the staker's current operator has been slashed 100% for <code>strategy</code>, OR the staker has been slashed 100% on the beacon chain such that the calculated slashing factor is 0, this method WILL REVERT. See <a href="../accounting/SharesAccountingEdgeCases/#fully-slashed-for-a-strategy">Shares Accounting - Fully Slashed</a> for details. This doesn't block delegation to an operator if the staker has 0 deposit shares for a strategy which has a slashing factor of 0, but any subsequent deposits that call <code>increaseDelegatedShares</code> will revert from the <strong>Fully Slashed</strong> edge case.</p>
+<p><em>Effects</em>:
+* If the staker is delegated to an operator, <code>addedShares</code> are added to the operator's shares
+* The staker's deposit scaling factor is updated</p>
+<p><em>Requirements</em>:
+* Caller MUST be either the <code>StrategyManager</code> or <code>EigenPodManager</code></p>
+<h4 id="decreasedelegatedshares"><code>decreaseDelegatedShares</code></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice If the staker is delegated, decreases its operator&#39;s shares in response to</span>
+<span class="cm"> * a decrease in balance in the beaconChainETHStrategy</span>
+<span class="cm"> * @param staker the staker whose operator&#39;s balance will be decreased</span>
+<span class="cm"> * @param curDepositShares the current deposit shares held by the staker</span>
+<span class="cm"> * @param beaconChainSlashingFactorDecrease the amount that the staker&#39;s beaconChainSlashingFactor has decreased by</span>
+<span class="cm"> * @dev Note: `beaconChainSlashingFactorDecrease` are assumed to ALWAYS be &lt; 1 WAD.</span>
+<span class="cm"> * These invariants are maintained in the EigenPodManager.</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">decreaseDelegatedShares</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">staker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">curDepositShares</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint64</span><span class="w"> </span><span class="nv">beaconChainSlashingFactorDecrease</span>
+<span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>onlyEigenPodManager
+<span class="w">    </span>nonReentrant
+</code></pre></div>
+<p>Called by the <code>EigenPodManager</code> when a staker's shares decrease due to a checkpointed balance decrease on the beacon chain. If the staker is delegated to an operator, the operator's shares are decreased in return. Otherwise, this method does nothing.</p>
+<p><em>Effects</em>: If the staker in question is delegated to an operator, the operator's shares for the <code>beaconChainETHStrategy</code> are decreased by the amount the staker's withdrawable shares have decreased by
+* This method is a no-op if the staker is not delegated to an operator.</p>
+<p><em>Requirements</em>:
+* Caller MUST be the <code>EigenPodManager</code></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        <div class="md-footer-copyright__highlight">
+          All presentation content belongs to their respective owners
+        </div>
+      </div>
+      <div class="md-footer-social">
+        <a href="https://github.com/KupiaSec" target="_blank" rel="noopener" title="GitHub" class="md-footer-social__link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+        </a>
+        <a href="https://x.com/KupiaSecurity" target="_blank" rel="noopener" title="Twitter" class="md-footer-social__link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "header.autohide", "navigation.top", "navigation.footer"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>

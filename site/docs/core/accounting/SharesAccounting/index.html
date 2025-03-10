@@ -1,0 +1,3419 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Collection of notes from Eigen Layer">
+      
+      
+        <meta name="author" content="KupiaSec">
+      
+      
+      
+        <link rel="prev" href="../../StrategyManager/">
+      
+      
+        <link rel="next" href="../SharesAccountingEdgeCases/">
+      
+      
+      <link rel="icon" href="../../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
+    
+    
+      
+        <title>Shares Accounting - Eigen Layer Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#shares-accounting" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Eigen Layer Docs" class="md-header__button md-logo" aria-label="Eigen Layer Docs" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Eigen Layer Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Shares Accounting
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Eigen Layer Docs" class="md-nav__button md-logo" aria-label="Eigen Layer Docs" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    Eigen Layer Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Code
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Code
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Core
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Core
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/core/AVSDirectory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AVSDirectory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/core/AVSDirectoryStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AVSDirectoryStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/core/AllocationManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AllocationManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/core/AllocationManagerStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AllocationManagerStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/core/DelegationManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DelegationManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/core/DelegationManagerStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DelegationManagerStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/core/RewardsCoordinator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RewardsCoordinator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/core/RewardsCoordinatorStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RewardsCoordinatorStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/core/StrategyManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    StrategyManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/core/StrategyManagerStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    StrategyManagerStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Interfaces
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Interfaces
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/interfaces/IAVSDirectory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IAVSDirectory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/interfaces/IAVSRegistrar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IAVSRegistrar
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/interfaces/IAllocationManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IAllocationManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/interfaces/IBackingEigen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IBackingEigen
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/interfaces/IDelegationManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IDelegationManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/interfaces/IETHPOSDeposit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IETHPOSDeposit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/interfaces/IEigen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IEigen
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/interfaces/IEigenPod/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IEigenPod
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/interfaces/IEigenPodManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IEigenPodManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/interfaces/IPausable/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPausable
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/interfaces/IPauserRegistry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPauserRegistry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/interfaces/IPermissionController/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPermissionController
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/interfaces/IRewardsCoordinator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IRewardsCoordinator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/interfaces/ISemVerMixin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ISemVerMixin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/interfaces/IShareManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IShareManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/interfaces/ISignatureUtilsMixin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ISignatureUtilsMixin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/interfaces/IStrategy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IStrategy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/interfaces/IStrategyFactory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IStrategyFactory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/interfaces/IStrategyManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IStrategyManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Libraries
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Libraries
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/libraries/BeaconChainProofs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BeaconChainProofs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/libraries/BytesLib/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BytesLib
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/libraries/Endian/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Endian
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/libraries/Merkle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Merkle
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/libraries/OperatorSetLib/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OperatorSetLib
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/libraries/SlashingLib/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SlashingLib
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/libraries/Snapshots/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Snapshots
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Mixins
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Mixins
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/mixins/PermissionControllerMixin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PermissionControllerMixin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/mixins/SemVerMixin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SemVerMixin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/mixins/SignatureUtilsMixin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SignatureUtilsMixin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Permissions
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Permissions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/permissions/Pausable/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pausable
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/permissions/PauserRegistry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PauserRegistry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/permissions/PermissionController/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PermissionController
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/permissions/PermissionControllerStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PermissionControllerStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Pods
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Pods
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/pods/EigenPod/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenPod
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/pods/EigenPodManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenPodManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/pods/EigenPodManagerStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenPodManagerStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/pods/EigenPodPausingConstants/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenPodPausingConstants
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/pods/EigenPodStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenPodStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Strategies
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Strategies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/strategies/EigenStrategy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenStrategy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/strategies/StrategyBase/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    StrategyBase
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/strategies/StrategyBaseTVLLimits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    StrategyBaseTVLLimits
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/strategies/StrategyFactory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    StrategyFactory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/strategies/StrategyFactoryStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    StrategyFactoryStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Token
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            Token
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/token/BackingEigen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BackingEigen
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../code/token/Eigen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Eigen
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Docs
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Docs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Core
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Core
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AVSDirectory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AVSDirectory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AllocationManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AllocationManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DelegationManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DelegationManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../EigenPod/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenPod
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../EigenPodManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenPodManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RewardsCoordinator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RewardsCoordinator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../StrategyManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    StrategyManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_8" id="__nav_3_1_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Accounting
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1_8">
+            <span class="md-nav__icon md-icon"></span>
+            Accounting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Shares Accounting
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Shares Accounting
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prior-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prior Reading
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pre-slashing-upgrade" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pre-Slashing Upgrade
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pre-Slashing Upgrade">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#staker-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staker Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operator-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#staker-deposits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staker Deposits
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#staker-withdrawals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staker Withdrawals
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slashing-upgrade-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slashing Upgrade Changes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Slashing Upgrade Changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      Terminology
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stored-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stored Variables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stored Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#staker-level_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staker Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operator-level_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator Level
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conceptual-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conceptual Variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deposits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deposits
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deposits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#staker-level_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staker Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operator-level_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator Level
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delegation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delegation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Delegation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operator-level_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#staker-level_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staker Level
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slashing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slashing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Slashing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operator-level_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#staker-level_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staker Level
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#queue-withdrawal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Queue Withdrawal
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Queue Withdrawal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operator-level_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#staker-level_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staker Level
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-withdrawal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Withdrawal
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complete Withdrawal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operator-level_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#staker-level_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staker Level
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handling-beacon-chain-balance-decreases-in-eigenpods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handling Beacon Chain Balance Decreases in EigenPods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Handling Beacon Chain Balance Decreases in EigenPods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Added Definitions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#staker-level_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staker Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operator-level_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator Level
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Details
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multiplication-and-division-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiplication and Division Operations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SharesAccountingEdgeCases/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Shares Accounting Edge Cases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SlashingEdgeCase/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dual Slashing Edge Case
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../experimental/AVS-Guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Purpose
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../permissions/PermissionController/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PermissionController
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prior-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prior Reading
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pre-slashing-upgrade" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pre-Slashing Upgrade
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pre-Slashing Upgrade">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#staker-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staker Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operator-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#staker-deposits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staker Deposits
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#staker-withdrawals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staker Withdrawals
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slashing-upgrade-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slashing Upgrade Changes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Slashing Upgrade Changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      Terminology
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stored-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stored Variables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stored Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#staker-level_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staker Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operator-level_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator Level
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conceptual-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conceptual Variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deposits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deposits
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deposits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#staker-level_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staker Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operator-level_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator Level
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delegation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delegation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Delegation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operator-level_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#staker-level_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staker Level
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slashing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slashing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Slashing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operator-level_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#staker-level_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staker Level
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#queue-withdrawal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Queue Withdrawal
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Queue Withdrawal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operator-level_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#staker-level_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staker Level
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-withdrawal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Withdrawal
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complete Withdrawal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operator-level_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#staker-level_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staker Level
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handling-beacon-chain-balance-decreases-in-eigenpods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handling Beacon Chain Balance Decreases in EigenPods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Handling Beacon Chain Balance Decreases in EigenPods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Added Definitions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#staker-level_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staker Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operator-level_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator Level
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Details
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multiplication-and-division-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiplication and Division Operations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="shares-accounting">Shares Accounting</h1>
+<p>This document outlines the changes to the staker and operator Shares accounting resulting from the Slashing Upgrade. There are several introduced variables such as the <em>deposit scaling factor</em> ($k_n$), <em>max magnitude</em> ($m_n$), and <em>beacon chain slashing factor</em> ($l_n$). How these interact with the operator and staker events like deposits, slashing, withdrawals will all be described below.</p>
+<h2 id="prior-reading">Prior Reading</h2>
+<ul>
+<li><a href="https://github.com/eigenfoundation/ELIPs/blob/main/ELIPs/ELIP-002.md">ELIP-002: Slashing via Unique Stake and Operator Sets</a></li>
+</ul>
+<h2 id="pre-slashing-upgrade">Pre-Slashing Upgrade</h2>
+<p>We'll look at the "shares" model as historically defined prior to the Slashing upgrade. Pre-slashing, stakers could receive shares for deposited assets, delegate those shares to operators, and withdraw those shares from the protocol. We can write this a bit more formally:</p>
+<h4 id="staker-level">Staker Level</h4>
+<p>$s_n$ - The amount of shares in the storage of the <code>StrategyManager</code>/<code>EigenPodManager</code> at time n.</p>
+<h4 id="operator-level">Operator Level</h4>
+<p>$op_n$ - The operator shares in the storage of the <code>DelegationManager</code> at time n which can also be rewritten as \
+$op_n = \sum_{i=1}^{k} s_{n,i}$ where the operator has $k$ number of stakers delegated to them.</p>
+<h4 id="staker-deposits">Staker Deposits</h4>
+<p>Upon each staker deposit of amount $d_n$ at time $n$, the staker's shares and delegated operator's shares are updated as follows:</p>
+<p>$$
+ s_{n+1} = s_{n} + d_{n}
+$$</p>
+<p>$$
+ op_{n+1} = op_{n} + d_{n}
+$$</p>
+<h4 id="staker-withdrawals">Staker Withdrawals</h4>
+<p>Similarly for staker withdrawals, given an amount $w_n$ to withdraw at time $n$, the staker and operator's shares are decremented at the point of the withdrawal being queued:</p>
+<p>$$
+ s_{n+1} = s_{n} - w_{n}
+$$</p>
+<p>$$<br />
+ op_{n+1} = op_{n} - w_{n}
+$$</p>
+<p>Later after the withdrawal delay has passed, the staker can complete their withdrawal to withdraw the full amount $w_n$ of shares. </p>
+<hr />
+<h2 id="slashing-upgrade-changes">Slashing Upgrade Changes</h2>
+<p>The remaining portions of this document will assume understanding of Allocations/Deallocations, Max Magnitudes, and Operator Sets as described in <a href="https://github.com/eigenfoundation/ELIPs/blob/main/ELIPs/ELIP-002.md">ELIP-002</a>.</p>
+<h3 id="terminology">Terminology</h3>
+<p>The word "shares" in EigenLayer has historically referred to the amount of shares a staker receives upon depositing assets through the <code>StrategyManager</code> or <code>EigenPodManager</code>. Outside of some conversion ratios in the <code>StrategyManager</code> to account for rebasing tokens, shares roughly correspond 1:1 with deposit amounts (i.e. 1e18 shares in the <code>beaconChainETHStrategy</code> corresponds to 1 ETH of assets). When delegating to an operator or queueing a withdrawal, the <code>DelegationManager</code> reads deposit shares from the <code>StrategyManager</code> or <code>EigenPodManager</code> to determine how many shares to delegate (or undelegate).</p>
+<p>With the slashing release, there is a need to differentiate "classes" of shares.</p>
+<p><strong>Deposit shares</strong>: </p>
+<p>Formerly known as "shares," these are the same shares used before the slashing release. They continue to be managed by the <code>StrategyManager</code> and <code>EigenPodManager</code>, and roughly correspond 1:1 with deposited assets.</p>
+<p><strong>Withdrawable shares</strong>: </p>
+<p>When an operator is slashed, the slash is applied to their stakers <em>asynchronously</em> (otherwise, slashing would require iterating over each of an operator's stakers; this is prohibitively expensive). </p>
+<p>The <code>DelegationManager</code> must find a common representation for the deposit shares of many stakers, each of which may have experienced different amounts of slashing depending on which operator they are delegated to, and when they delegated. This common representation is achieved in part through a value called the <code>depositScalingFactor</code>: a per-staker, per-strategy value that scales a staker's deposit shares as they deposit assets over time.</p>
+<p>When a staker does just about anything (changing their delegated operator, queueing/completing a withdrawal, depositing new assets), the <code>DelegationManager</code> converts their <em>deposit shares</em> to <em>withdrawable shares</em> by applying the staker's <code>depositScalingFactor</code> and the current <em>slashing factor</em> (a per-strategy scalar primarily derived from the amount of slashing an operator has received in the <code>AllocationManager</code>).</p>
+<p>These <em>withdrawable shares</em> are used to determine how many of a staker's deposit shares are actually able to be withdrawn from the protocol, as well as how many shares can be delegated to an operator. An individual staker's withdrawable shares are not reflected anywhere in storage; they are calculated on-demand.</p>
+<p><strong>Operator shares</strong>:</p>
+<p><em>Operator shares</em> are derivative of <em>withdrawable shares</em>. When a staker delegates to an operator, they are delegating their <em>withdrawable shares</em>. Thus, an operator's <em>operator shares</em> represent the sum of all of their stakers' <em>withdrawable shares</em>. Note that when a staker first delegates to an operator, this is a special case where <em>deposit shares</em> == <em>withdrawable shares</em>. If the staker deposits additional assets later, this case will not hold if slashing was experienced in the interim.</p>
+<hr />
+<p>Each of these definitions can also be applied to the pre-slashing share model, but with the caveat that for all stakers, <em>withdrawable shares equal deposit shares</em>. After the slashing upgrade this is not necessarily the case - a staker may not be able to withdraw the amount they deposited if their operator got slashed.</p>
+<p>Now let's look at these updated definitions in detail and how the accounting math works with deposits, withdrawals, and slashing.</p>
+<h3 id="stored-variables">Stored Variables</h3>
+<p>Note that these variables are all defined within the context of a single Strategy. Also note that the concept of "1" used within these equations is represented in the code by the constant <code>1 WAD</code>, or <code>1e18</code>.</p>
+<h4 id="staker-level_1">Staker Level</h4>
+<p>$s_n$ - The amount of deposit shares in the storage of the <code>StrategyManager</code>/<code>EigenPodManager</code> at time $n$. In storage: <code>StrategyManager.stakerDepositShares</code> and <code>EigenPodManager.podOwnerDepositShares</code></p>
+<p>$k_n$ - The staker's “deposit scaling factor” at time $n$. This is initialized to 1. In storage: <code>DelegationManager.depositScalingFactor</code></p>
+<p>$l_n$ - The staker's "beacon chain slashing factor" at time $n$. This is initialized to 1. For any equations concerning non-native ETH strategies, this can be assumed to be 1. In storage: <code>EigenPodManager.beaconChainSlashingFactor</code></p>
+<h4 id="operator-level_1">Operator Level</h4>
+<p>$m_n$ - The operator magnitude at time n. This is initialized to 1.</p>
+<p>$op_n$ - The operator shares in the storage of the <code>DelegationManager</code> at time n. In storage: <code>DelegationManager.operatorShares</code></p>
+<h3 id="conceptual-variables">Conceptual Variables</h3>
+<p>$a_n = s_n k_n l_n m_n$ - The withdrawable shares that the staker owns at time $n$. Read from view function <code>DelegationManager.getWithdrawableShares</code></p>
+<p>Note that $op_n = \sum_{i=1}^{k} a_{n,i}$.</p>
+<hr />
+<h3 id="deposits">Deposits</h3>
+<p>For an amount of newly deposited shares $d_n$,</p>
+<h4 id="staker-level_2">Staker Level</h4>
+<p>Conceptually, the staker's deposit shares and withdrawable shares both increase by the deposited amount $d_n$. Let's work out how this math impacts the deposit scaling factor $k_n$.</p>
+<p>$$
+a_{n+1} = a_n + d_n
+$$</p>
+<p>$$
+s_{n+1} = s_n +d_n
+$$</p>
+<p>$$
+l_{n+1} = l_n
+$$</p>
+<p>$$
+m_{n+1} = m_n
+$$</p>
+<p>Expanding the $a_{n+1}$ calculation</p>
+<p>$$
+s_{n+1} k_{n+1} l_{n+1} m_{n+1} = s_n k_n l_n m_n + d_n
+$$</p>
+<p>Simplifying yields:</p>
+<p>$$
+k_{n+1} = \frac{s_n k_n l_n m_n + d_n}{s_{n+1} l_{n+1} m_{n+1}}=\frac{s_n k_n l_n m_n + d_n}{(s_n+d_n)l_nm_n}
+$$</p>
+<p>Updating the slashing factor is implemented in <code>SlashingLib.update</code>.</p>
+<h4 id="operator-level_2">Operator Level</h4>
+<p>For the operator (if the staker is delegated), the delegated operator shares should increase by the exact amount
+the staker just deposited. Therefore $op_n$ is updated as follows:</p>
+<p>$$
+op_{n+1} = op_n+d_n
+$$</p>
+<p>See implementation in:
+* <a href="../../../src/contracts/core/StrategyManager.sol"><code>StrategyManager.depositIntoStrategy</code></a>
+* <a href="../../../src/contracts/pods/EigenPodManager.sol"><code>EigenPodManager.recordBeaconChainETHBalanceUpdate</code></a></p>
+<hr />
+<h3 id="delegation">Delegation</h3>
+<p>Suppose we have an undelegated staker who decides to delegate to an operator.
+We have the following properties that should be preserved.</p>
+<h4 id="operator-level_3">Operator Level</h4>
+<p>Operator shares should be increased by the amount of delegatable shares the staker has, this is synonymous to their withdrawable shares $a_n$. Therefore,</p>
+<p>$$
+op_{n+1} = op_{n} + a_n
+$$</p>
+<p>$$
+= op_{n} + s_n k_n l_n m_n
+$$</p>
+<h4 id="staker-level_3">Staker Level</h4>
+<p>withdrawable shares should remain unchanged</p>
+<p>$$
+a_{n+1} = a_n
+$$</p>
+<p>deposit shares should remain unchanged</p>
+<p>$$
+s_{n+1} = s_n
+$$</p>
+<p>beaconChainSlashingFactor and maxMagnitude should also remain unchanged. In this case, since the staker is not delegated, then their maxMagnitude should by default be equal to 1.</p>
+<p>$$
+l_{n+1} = l_n
+$$</p>
+<p>Now the question is what is the new depositScalingFactor equal to?</p>
+<p>$$
+a_{n+1} = a_n
+$$</p>
+<p>$$
+=&gt; s_{n+1} k_{n+1} l_{n+1} m_{n+1} = s_n k_n l_n m_n
+$$</p>
+<p>$$
+=&gt; s_{n} k_{n+1} l_{n} m_{n+1} = s_n k_n l_n m_n
+$$</p>
+<p>$$
+=&gt; k_{n+1} = \frac {k_n m_n} { m_{n+1} }
+$$</p>
+<p>Notice how the staker variables that update $k_{n+1}$ and $m_{n+1}$ do not affect previously queued withdrawals and shares received upon withdrawal completion. This is because the maxMagnitude that is looked up is dependent on the operator at the time of the queued withdrawal and the $k_n$ is effectively stored in the scaled shares field.</p>
+<hr />
+<h3 id="slashing">Slashing</h3>
+<p>Given a proportion to slash $p_n = \frac {m_{n+1}}{m_n}$ ,</p>
+<h4 id="operator-level_4">Operator Level</h4>
+<p>From a conceptual level, operator shares should be decreased by the proportion according to the following:</p>
+<p>$$
+ op_{n+1} = op_n p_n
+$$</p>
+<p>$$
+ =&gt; op_{n+1} = op_n \frac {m_{n+1}} {m_n}
+$$ </p>
+<p>Calculating the amount of $sharesToDecrement$:</p>
+<p>$$
+ sharesToDecrement = op_n - op_{n+1}
+$$</p>
+<p>$$
+ = op_n - op_n \frac {m_{n+1}} {m_n}
+$$</p>
+<p>This calculation is performed in <code>SlashingLib.calcSlashedAmount</code>.</p>
+<h4 id="staker-level_4">Staker Level</h4>
+<p>From the conceptual level, a staker's withdrawable shares should also be proportionally slashed so the following must be true:</p>
+<p>$$
+a_{n+1} = a_n p_n
+$$</p>
+<p>We don't want to update storage at the staker level during slashing as this would be computationally too expensive given an operator has a 1-many relationship with its delegated stakers. Therefore we want to prove $a_{n+1} = a_n p_n$ since withdrawable shares are slashed by $p_n$.</p>
+<p>Given the following:</p>
+<p>$l_{n+1} = l_n$ \
+$k_{n+1} = k_n$ \
+$s_{n+1} = s_n$</p>
+<p>Expanding the $a_{n+1}$ equation:</p>
+<p>$$
+a_{n+1} = s_{n+1} k_{n+1} l_{n+1} m_{n+1}
+$$</p>
+<p>$$
+=&gt; s_{n} k_{n} l_{n} m_{n+1}
+$$</p>
+<p>We know that  $p_n = \frac {m_{n+1}}{m_n}$ =&gt;  $m_{n+1} = m_n p_n$ </p>
+<p>$$
+=&gt;  s_n k_n l_n m_n p_n
+$$</p>
+<p>$$
+=&gt; a_n p_n
+$$</p>
+<p>This means that a staker's withdrawable shares are immediately affected upon their operator's maxMagnitude being decreased via slashing.</p>
+<hr />
+<h3 id="queue-withdrawal">Queue Withdrawal</h3>
+<p>Withdrawals are queued by inputting a <code>depositShares</code> amount $x_n &lt;= s_n$. The actual withdrawable amount $w_n$ corresponding to $x_n$ is given by the following:</p>
+<p>$$
+ w_n = x_n k_n l_n m_n
+$$</p>
+<p>This conceptually makes sense as the amount being withdrawn $w_n$ is some amount &lt;= $a_n$ which is the total withdrawable shares amount for the staker. </p>
+<h4 id="operator-level_5">Operator Level</h4>
+<p>When a staker queues a withdrawal, their operator's shares are reduced accordingly:</p>
+<p>$$
+ op_{n+1} = op_n - w_n
+$$</p>
+<h4 id="staker-level_5">Staker Level</h4>
+<p>$$
+ a_{n+1} = a_n - w_n
+$$</p>
+<p>$$
+ s_{n+1} = s_n - x_n
+$$</p>
+<p>This means that when queuing a withdrawal, the staker inputs a <code>depositShares</code> amount $x_n$. The <code>DelegationManager</code> calls the the <code>EigenPodManager</code>/<code>StrategyManager</code> to decrement their <code>depositShares</code> by this amount. Additionally, the <code>depositShares</code> are converted to a withdrawable amount $w_n$, which are decremented from the operator's shares.</p>
+<p>We want to show that the total withdrawable shares for the staker are decreased accordingly such that $a_{n+1} = a_n - w_n$.</p>
+<p>Given the following:</p>
+<p>$l_{n+1} = l_n$ \
+$k_{n+1} = k_n$ \
+$s_{n+1} = s_n$</p>
+<p>Expanding the $a_{n+1}$ equation:</p>
+<p>$$
+ a_{n+1} = s_{n+1} k_{n+1} l_{n+1} m_{n+1}
+$$</p>
+<p>$$
+ =&gt;  (s_{n} - x_n) k_{n+1} l_{n+1} m_{n+1}
+$$</p>
+<p>$$
+ =  (s_{n} - x_n) k_n l_n m_n
+$$</p>
+<p>$$
+ = s_n k_n l_n m_n - x_n k_n l_n m_n
+$$</p>
+<p>$$
+ = a_n - w_n
+$$</p>
+<p>Note that when a withdrawal is queued, a <code>Withdrawal</code> struct is created with <em>scaled shares</em> defined as $q_t = x_t k_t$ where $t$ is the time of the queuing. The reason we define and store scaled shares like this will be clearer in <a href="#complete-withdrawal">Complete Withdrawal</a> below.</p>
+<p>Additionally, we reset the depositScalingFactor when a user queues a withdrawal for all their shares, either through un/redelegation or directly. This is because the DSF at the time of withdrawal is stored in the scaled shares, and any "new" deposits or delegations by the staker should be considered as new. Note that withdrawal completion is treated as a kind of deposit when done as shares, which again will be clearer below.</p>
+<p>See implementation in:
+* <code>DelegationManager.queueWithdrawals</code>
+* <code>SlashingLib.scaleForQueueWithdrawal</code></p>
+<p><br></p>
+<hr />
+<h3 id="complete-withdrawal">Complete Withdrawal</h3>
+<p>Now the staker completes a withdrawal $(q_t, t)$ which was queued at time $t$.</p>
+<h4 id="operator-level_6">Operator Level</h4>
+<p>If the staker completes the withdrawal <em>as tokens</em>, any operator shares remain unchanged. The original operator's shares were decremented when the withdrawal was queued, and a new operator does not receive shares if the staker is withdrawing assets ("as tokens").</p>
+<p>However, if the staker completes the withdrawal <em>as shares</em>, the shares are added to the staker's current operator according to the formulae in <a href="#deposits">Deposits</a>.</p>
+<h4 id="staker-level_6">Staker Level</h4>
+<!-- There are no storage updates for the staker outside of needing to calculate the shares to send the staker. -->
+
+<p>Recall from <a href="#queue-withdrawal">Queue Withdrawal</a> that, when a withdrawal is queued, the <code>Withdrawal</code> struct stores <em>scaled shares</em>, defined as $q_t = x_t k_t$ where $x_t$ is the deposit share amount requested for withdrawal and $t$ is the time of the queuing.</p>
+<p>And, given the formula for calculating withdrawable shares, the withdrawable shares given to the staker are $w_t$:</p>
+<p>$$
+w_t = q_t m_t l_t = x_t k_t l_t m_t
+$$</p>
+<p>However, the staker's shares in their withdrawal may have been slashed while the withdrawal was in the queue. Their operator may have been slashed by an AVS, or, if the strategy is the <code>beaconChainETHStrategy</code>, the staker's validators may have been slashed/penalized.</p>
+<p>The amount of shares they actually receive is proportionally the following:</p>
+<p>$$
+    \frac{m_{t+delay} l_{now} }{m_t l_t}
+$$</p>
+<p>So the actual amount of shares withdrawn on completion is calculated to be:</p>
+<p>$$
+sharesWithdrawn = w_t (\frac{m_{t+delay} l_{now}}{m_t l_t} )
+$$</p>
+<p>$$ 
+= x_t k_t l_t m_t (\frac{m_{t+delay} l_{now}}{m_t l_t} )
+$$</p>
+<p>$$ 
+= x_t k_t m_{t+delay} l_{now}
+$$</p>
+<p>Now we know that $q_t = x_t k_t$ so we can substitute this value in here. </p>
+<p>$$ 
+= q_t m_{t+delay} l_{now}
+$$</p>
+<p>From the above equations the known values we have during the time of queue withdrawal is $x_t k_t$ and we only know $m_{t+delay} l_{now}$ when the queued withdrawal is completable. This is why we store scaled shares as $q_t = x_t k_t$. The other term ($m_{t+delay} l_{now}$) is read during the completing transaction of the withdrawal.</p>
+<p>Note: Reading $m_{t+delay}$ is performed by a historical Snapshot lookup of the max magnitude in the <code>AllocationManager</code> while $l_{now}$, the current beacon chain slashing factor, is done through the <code>EigenPodManager</code>. Recall that if the strategy in question is not the <code>beaconChainETHStrategy</code>, $l_{now}$ will default to "1".</p>
+<p>The definition of scaled shares is used solely for handling withdrawals and accounting for slashing that may have occurred (both on EigenLayer and on the beacon chain) during the queue period.</p>
+<p>See implementation in:
+* <code>DelegationManager.completeQueuedWithdrawal</code>
+* <code>SlashingLib.scaleForCompleteWithdrawal</code></p>
+<hr />
+<h3 id="handling-beacon-chain-balance-decreases-in-eigenpods">Handling Beacon Chain Balance Decreases in EigenPods</h3>
+<p>Beacon chain balance decreases are handled differently after the slashing upgrade with the introduction of $l_n$ the beacon chain slashing factor. </p>
+<p>Prior to the upgrade, any decreases in an <code>EigenPod</code> balance for a staker as a result of completing a checkpoint immediately decrements from the staker's shares in the <code>EigenPodManager</code>. As an edge case, this meant that a staker's shares could go negative if, for example, they queued a withdrawal for all their shares and then completed a checkpoint on their <code>EigenPod</code> showing a balance decrease.</p>
+<p>With the introduction of the beacon chain slashing factor, beacon chain balance decreases no longer result in a decrease in deposit shares. Instead, the staker's beacon chain slashing factor is decreased, allowing the system to realize that slash in any existing shares, as well as in any existing queued withdrawals. Effectively, this means that beacon chain slashing is accounted for similarly to EigenLayer-native slashing; <em>deposit shares remain the same, while withdrawable shares are reduced:</em></p>
+<p><img alt="." src="../../images/slashing-model.png" /></p>
+<p>Now let's consider how beacon chain balance decreases are handled when they represent a negative share delta for a staker's EigenPod.</p>
+<h4 id="added-definitions">Added Definitions</h4>
+<p>$welw$ is <code>withdrawableExecutionLayerGwei</code>. This is purely native ETH in the <code>EigenPod</code>, attributed via checkpoint and considered withdrawable by the pod (but without factoring in any EigenLayer-native slashing). <code>DelegationManager.getWithdrawableShares</code> can be called  to account for both EigenLayer and beacon chain slashing.</p>
+<p>$before\text{ }start$ is time just before a checkpoint is started</p>
+<!-- $before\text{ }complete$ is time just before a checkpoint is completed -->
+
+<p>$after\text{ }complete$ is the time just after a checkpoint is completed </p>
+<p>As a checkpoint is completed, the total assets represented by the pod's native ETH and beacon chain balances <em>before</em> and <em>after</em> are given by:</p>
+<p>$g_n = welw_{before\text{ }start}+\sum_i validator_i.balance_{before\text{ }start}$ \
+$h_n = welw_{after\text{ }complete}+\sum_i validator_i.balance_{after\text{ }complete}$</p>
+<h4 id="staker-level_7">Staker Level</h4>
+<p>Conceptually, the above logic specifies that we decrease the staker's withdrawable shares proportionally to the balance decrease:</p>
+<p>$$
+a_{n+1} = \frac{h_n}{g_n}a_n
+$$</p>
+<p>We implement this by setting</p>
+<p>$$
+l_{n+1}=\frac{h_n}{g_n}l_n
+$$</p>
+<p>Given:</p>
+<p>$m_{n+1}=m_n$ (staker beacon chain slashing does not affect its operator's magnitude)
+$s_{n+1} = s_n$ (no subtraction of deposit shares)
+$k_{n+1}=k_n$</p>
+<p>Then, plugging into the formula for withdrawable shares:</p>
+<p>$$
+a_{n+1} = s_{n+1}k_{n+1}l_{n+1}m_{n+1}
+$$</p>
+<p>$$
+=s_nk_n\frac{h_n}{g_n}l_nm_n
+$$</p>
+<p>$$
+= \frac{h_n}{g_n}a_n
+$$</p>
+<h4 id="operator-level_7">Operator Level</h4>
+<p>Now we want to update the operator's shares accordingly. At a conceptual level $op_{n+1}$ should be the following:</p>
+<p>$$
+ op_{n+1} = op_n - a_n + a_{n+1}
+$$</p>
+<p>We can simplify this further</p>
+<p>$$
+ =op_{n}-s_nk_nl_nm_n + s_nk_nl_{n+1}m_n
+$$</p>
+<p>$$
+ = op_{n}+s_nk_nm_n(l_{n+1}-l_n)
+$$</p>
+<p>See implementation in:
+* <code>EigenPodManager.recordBeaconChainETHBalanceUpdate</code>
+* <code>DelegationManager.decreaseDelegatedShares</code></p>
+<hr />
+<h2 id="implementation-details">Implementation Details</h2>
+<p>In practice, we can’t actually have floating values so we will substitute all $k_n, l_n, m_n$ terms with $m_n$/1e18  $\frac{k_n}{1e18},\frac{l_n}{1e18} ,\frac{m_n}{1e18}$ respectively where $k_n, l_n, m_n$ are the values in storage, all initialized to 1e18. This allows us to conceptually have values in the range $[0,1]$.</p>
+<p>We make use of OpenZeppelin's Math library and <code>mulDiv</code> for calculating $floor(\frac{x \cdot y}{denominator})$ with full precision. Sometimes for specific rounding edge cases, $ceiling(\frac{x \cdot y}{denominator})$ is explicitly used.</p>
+<h4 id="multiplication-and-division-operations">Multiplication and Division Operations</h4>
+<p>For all the equations in the above document, we substitute any product operations of $k_n, l_n, m_n$ with the <code>mulWad</code> pure function.
+<div class="highlight"><pre><span></span><code><span class="kt">function</span><span class="w"> </span><span class="nv">mulWad</span><span class="p">(</span><span class="kt">uint256</span><span class="w"> </span><span class="nv">x</span><span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">y</span><span class="p">)</span><span class="w"> </span><span class="kt">internal</span><span class="w"> </span>pure<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint256</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">return</span><span class="w"> </span>x<span class="p">.</span>mulDiv<span class="p">(</span>y<span class="p">,</span><span class="w"> </span>WAD<span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>Conversely, for any divisions of $k_n, l_n, m_n$ we use the <code>divWad</code> pure function.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">function</span><span class="w"> </span><span class="nv">divWad</span><span class="p">(</span><span class="kt">uint256</span><span class="w"> </span><span class="nv">x</span><span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">y</span><span class="p">)</span><span class="w"> </span><span class="kt">internal</span><span class="w"> </span>pure<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint256</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">return</span><span class="w"> </span>x<span class="p">.</span>mulDiv<span class="p">(</span>WAD<span class="p">,</span><span class="w"> </span>y<span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        <div class="md-footer-copyright__highlight">
+          All presentation content belongs to their respective owners
+        </div>
+      </div>
+      <div class="md-footer-social">
+        <a href="https://github.com/KupiaSec" target="_blank" rel="noopener" title="GitHub" class="md-footer-social__link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+        </a>
+        <a href="https://x.com/KupiaSecurity" target="_blank" rel="noopener" title="Twitter" class="md-footer-social__link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["content.code.copy", "header.autohide", "navigation.top", "navigation.footer"], "search": "../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>

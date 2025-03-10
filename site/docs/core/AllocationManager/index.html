@@ -1,0 +1,3578 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Collection of notes from Eigen Layer">
+      
+      
+        <meta name="author" content="KupiaSec">
+      
+      
+      
+        <link rel="prev" href="../AVSDirectory/">
+      
+      
+        <link rel="next" href="../DelegationManager/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
+    
+    
+      
+        <title>AllocationManager - Eigen Layer Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#allocationmanager" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Eigen Layer Docs" class="md-header__button md-logo" aria-label="Eigen Layer Docs" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Eigen Layer Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              AllocationManager
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Eigen Layer Docs" class="md-nav__button md-logo" aria-label="Eigen Layer Docs" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    Eigen Layer Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Code
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Code
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Core
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Core
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/core/AVSDirectory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AVSDirectory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/core/AVSDirectoryStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AVSDirectoryStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/core/AllocationManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AllocationManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/core/AllocationManagerStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AllocationManagerStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/core/DelegationManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DelegationManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/core/DelegationManagerStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DelegationManagerStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/core/RewardsCoordinator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RewardsCoordinator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/core/RewardsCoordinatorStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RewardsCoordinatorStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/core/StrategyManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    StrategyManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/core/StrategyManagerStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    StrategyManagerStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Interfaces
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Interfaces
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IAVSDirectory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IAVSDirectory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IAVSRegistrar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IAVSRegistrar
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IAllocationManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IAllocationManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IBackingEigen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IBackingEigen
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IDelegationManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IDelegationManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IETHPOSDeposit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IETHPOSDeposit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IEigen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IEigen
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IEigenPod/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IEigenPod
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IEigenPodManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IEigenPodManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IPausable/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPausable
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IPauserRegistry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPauserRegistry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IPermissionController/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPermissionController
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IRewardsCoordinator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IRewardsCoordinator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/ISemVerMixin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ISemVerMixin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IShareManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IShareManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/ISignatureUtilsMixin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ISignatureUtilsMixin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IStrategy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IStrategy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IStrategyFactory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IStrategyFactory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/interfaces/IStrategyManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IStrategyManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Libraries
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Libraries
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/libraries/BeaconChainProofs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BeaconChainProofs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/libraries/BytesLib/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BytesLib
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/libraries/Endian/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Endian
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/libraries/Merkle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Merkle
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/libraries/OperatorSetLib/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OperatorSetLib
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/libraries/SlashingLib/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SlashingLib
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/libraries/Snapshots/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Snapshots
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Mixins
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Mixins
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/mixins/PermissionControllerMixin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PermissionControllerMixin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/mixins/SemVerMixin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SemVerMixin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/mixins/SignatureUtilsMixin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SignatureUtilsMixin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Permissions
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Permissions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/permissions/Pausable/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pausable
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/permissions/PauserRegistry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PauserRegistry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/permissions/PermissionController/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PermissionController
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/permissions/PermissionControllerStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PermissionControllerStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Pods
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Pods
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/pods/EigenPod/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenPod
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/pods/EigenPodManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenPodManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/pods/EigenPodManagerStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenPodManagerStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/pods/EigenPodPausingConstants/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenPodPausingConstants
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/pods/EigenPodStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenPodStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Strategies
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Strategies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/strategies/EigenStrategy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenStrategy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/strategies/StrategyBase/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    StrategyBase
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/strategies/StrategyBaseTVLLimits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    StrategyBaseTVLLimits
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/strategies/StrategyFactory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    StrategyFactory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/strategies/StrategyFactoryStorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    StrategyFactoryStorage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Token
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            Token
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/token/BackingEigen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BackingEigen
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/token/Eigen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Eigen
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Docs
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Docs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Core
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Core
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AVSDirectory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AVSDirectory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    AllocationManager
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    AllocationManager
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prior-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prior Reading
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameterization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameterization
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#avs-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      AVS Metadata
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AVS Metadata">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updateavsmetadatauri" class="md-nav__link">
+    <span class="md-ellipsis">
+      updateAVSMetadataURI
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operator-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator Sets
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operator Sets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#registration-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Registration Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#createoperatorsets" class="md-nav__link">
+    <span class="md-ellipsis">
+      createOperatorSets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#addstrategiestooperatorset" class="md-nav__link">
+    <span class="md-ellipsis">
+      addStrategiesToOperatorSet
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#removestrategiesfromoperatorset" class="md-nav__link">
+    <span class="md-ellipsis">
+      removeStrategiesFromOperatorSet
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registerforoperatorsets" class="md-nav__link">
+    <span class="md-ellipsis">
+      registerForOperatorSets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deregisterfromoperatorsets" class="md-nav__link">
+    <span class="md-ellipsis">
+      deregisterFromOperatorSets
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#allocations-and-slashing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Allocations and Slashing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Allocations and Slashing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#max-vs-encumbered-magnitude" class="md-nav__link">
+    <span class="md-ellipsis">
+      Max vs Encumbered Magnitude
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluating-the-current-allocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evaluating the "Current" Allocation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluating-whether-an-allocation-is-slashable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evaluating Whether an Allocation is "Slashable"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluating-how-much-of-the-allocation-is-slashable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evaluating How Much of the Allocation is "Slashable"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modifyallocations" class="md-nav__link">
+    <span class="md-ellipsis">
+      modifyAllocations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cleardeallocationqueue" class="md-nav__link">
+    <span class="md-ellipsis">
+      clearDeallocationQueue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slashoperator" class="md-nav__link">
+    <span class="md-ellipsis">
+      slashOperator
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#config" class="md-nav__link">
+    <span class="md-ellipsis">
+      Config
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Config">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setallocationdelay" class="md-nav__link">
+    <span class="md-ellipsis">
+      setAllocationDelay
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setavsregistrar" class="md-nav__link">
+    <span class="md-ellipsis">
+      setAVSRegistrar
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DelegationManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DelegationManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EigenPod/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenPod
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EigenPodManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EigenPodManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RewardsCoordinator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RewardsCoordinator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../StrategyManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    StrategyManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_8" id="__nav_3_1_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Accounting
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_8">
+            <span class="md-nav__icon md-icon"></span>
+            Accounting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../accounting/SharesAccounting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Shares Accounting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../accounting/SharesAccountingEdgeCases/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Shares Accounting Edge Cases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../accounting/SlashingEdgeCase/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dual Slashing Edge Case
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experimental/AVS-Guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Purpose
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../permissions/PermissionController/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PermissionController
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prior-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prior Reading
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameterization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameterization
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#avs-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      AVS Metadata
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AVS Metadata">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updateavsmetadatauri" class="md-nav__link">
+    <span class="md-ellipsis">
+      updateAVSMetadataURI
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operator-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator Sets
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operator Sets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#registration-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Registration Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#createoperatorsets" class="md-nav__link">
+    <span class="md-ellipsis">
+      createOperatorSets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#addstrategiestooperatorset" class="md-nav__link">
+    <span class="md-ellipsis">
+      addStrategiesToOperatorSet
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#removestrategiesfromoperatorset" class="md-nav__link">
+    <span class="md-ellipsis">
+      removeStrategiesFromOperatorSet
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registerforoperatorsets" class="md-nav__link">
+    <span class="md-ellipsis">
+      registerForOperatorSets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deregisterfromoperatorsets" class="md-nav__link">
+    <span class="md-ellipsis">
+      deregisterFromOperatorSets
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#allocations-and-slashing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Allocations and Slashing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Allocations and Slashing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#max-vs-encumbered-magnitude" class="md-nav__link">
+    <span class="md-ellipsis">
+      Max vs Encumbered Magnitude
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluating-the-current-allocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evaluating the "Current" Allocation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluating-whether-an-allocation-is-slashable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evaluating Whether an Allocation is "Slashable"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluating-how-much-of-the-allocation-is-slashable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evaluating How Much of the Allocation is "Slashable"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modifyallocations" class="md-nav__link">
+    <span class="md-ellipsis">
+      modifyAllocations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cleardeallocationqueue" class="md-nav__link">
+    <span class="md-ellipsis">
+      clearDeallocationQueue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slashoperator" class="md-nav__link">
+    <span class="md-ellipsis">
+      slashOperator
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#config" class="md-nav__link">
+    <span class="md-ellipsis">
+      Config
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Config">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setallocationdelay" class="md-nav__link">
+    <span class="md-ellipsis">
+      setAllocationDelay
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setavsregistrar" class="md-nav__link">
+    <span class="md-ellipsis">
+      setAVSRegistrar
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="allocationmanager">AllocationManager</h1>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../src/contracts/core/AllocationManager.sol"><code>AllocationManager.sol</code></a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../../src/contracts/core/AllocationManagerStorage.sol"><code>AllocationManagerStorage.sol</code></a></td>
+<td>state variables</td>
+</tr>
+<tr>
+<td><a href="../../src/contracts/interfaces/IAllocationManager.sol"><code>IAllocationManager.sol</code></a></td>
+<td>interface</td>
+</tr>
+</tbody>
+</table>
+<p>Libraries and Mixins:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../src/contracts/mixins/PermissionControllerMixin.sol"><code>PermissionControllerMixin.sol</code></a></td>
+<td>account delegation</td>
+</tr>
+<tr>
+<td><a href="../../src/contracts/permissions/Pausable.sol"><code>Pausable.sol</code></a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../../src/contracts/libraries/SlashingLib.sol"><code>SlashingLib.sol</code></a></td>
+<td>slashing math</td>
+</tr>
+<tr>
+<td><a href="../../src/contracts/libraries/OperatorSetLib.sol"><code>OperatorSetLib.sol</code></a></td>
+<td>encode/decode operator sets</td>
+</tr>
+<tr>
+<td><a href="../../src/contracts/libraries/Snapshots.sol"><code>Snapshots.sol</code></a></td>
+<td>historical state</td>
+</tr>
+</tbody>
+</table>
+<h2 id="prior-reading">Prior Reading</h2>
+<ul>
+<li><a href="https://github.com/eigenfoundation/ELIPs/blob/main/ELIPs/ELIP-002.md">ELIP-002: Slashing via Unique Stake and Operator Sets</a></li>
+</ul>
+<h2 id="overview">Overview</h2>
+<p>The <code>AllocationManager</code> manages AVS metadata registration, registration and deregistration of operators to operator sets, handles allocation and slashing of operators' slashable stake, and is the entry point an AVS uses to slash an operator. The <code>AllocationManager's</code> responsibilities are broken down into the following concepts:</p>
+<ul>
+<li><a href="#avs-metadata">AVS Metadata</a></li>
+<li><a href="#operator-sets">Operator Sets</a></li>
+<li><a href="#allocations-and-slashing">Allocations and Slashing</a></li>
+<li><a href="#config">Config</a></li>
+</ul>
+<h2 id="parameterization">Parameterization</h2>
+<ul>
+<li><code>ALLOCATION_CONFIGURATION_DELAY</code>: The delay in blocks before allocations take effect.<ul>
+<li>Mainnet: <code>126000 blocks</code> (17.5 days).</li>
+<li>Testnet: <code>75 blocks</code> (15 minutes).</li>
+</ul>
+</li>
+<li><code>DEALLOCATION_DELAY</code>: The delay in blocks before deallocations take effect.<ul>
+<li>Mainnet: <code>100800 blocks</code> (14 days).</li>
+<li>Testnet: <code>50 blocks</code> (10 minutes).</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="avs-metadata">AVS Metadata</h2>
+<p>AVSs must register their metadata to declare themselves who they are as the first step, before they can create operator sets or register operators into operator sets. <code>AllocationManager</code> keeps track of AVSs that have registered metadata.</p>
+<p><strong>Methods:</strong>
+* <a href="#updateavsmetadatauri"><code>updateAVSMetadataURI</code></a></p>
+<h4 id="updateavsmetadatauri"><code>updateAVSMetadataURI</code></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> *  @notice Called by an AVS to emit an `AVSMetadataURIUpdated` event indicating the information has updated.</span>
+<span class="cm"> *</span>
+<span class="cm"> *  @param metadataURI The URI for metadata associated with an AVS.</span>
+<span class="cm"> *</span>
+<span class="cm"> *  @dev Note that the `metadataURI` is *never stored* and is only emitted in the `AVSMetadataURIUpdated` event.</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">updateAVSMetadataURI</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">avs</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="nv">calldata</span><span class="w"> </span>metadataURI
+<span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>checkCanCall<span class="p">(</span>avs<span class="p">)</span>
+</code></pre></div>
+<p><em>Note: this method can be called directly by an AVS, or by a caller authorized by the AVS. See <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a> for details.</em></p>
+<p>Below is the format AVSs should use when updating their metadata URI initially. This is not validated onchain.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AVS&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;website&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https.avs.xyz/&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Some description about&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;logo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://github.com/logo.png&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;twitter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://twitter.com/avs&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Later on, once AVSs have created operator sets, content in their metadata URI can be updated subsequently.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AVS&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;website&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https.avs.xyz/&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Some description about&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;logo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://github.com/logo.png&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;twitter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://twitter.com/avs&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;operatorSets&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ETH Set&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// Note: we use this param to match the opSet id in the Allocation Manager</span>
+<span class="w">            </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The ETH operatorSet for AVS&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;software&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NetworkMonitor&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://link-to-binary-or-github.com&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ValidatorClient&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://link-to-binary-or-github.com&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;slashingConditions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Condition A&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Condition B&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EIGEN Set&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// Note: we use this param to match the opSet id in the Allocation Manager</span>
+<span class="w">            </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The EIGEN operatorSet for AVS&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;software&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NetworkMonitor&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://link-to-binary-or-github.com&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ValidatorClient&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://link-to-binary-or-github.com&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;slashingConditions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Condition A&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Condition B&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><em>Effects</em>:
+* Emits an <code>AVSMetadataURIUpdated</code> event for use in offchain services</p>
+<p><em>Requirements</em>:
+* Caller MUST be authorized, either as the AVS itself or an admin/appointee (see <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a>)</p>
+<h2 id="operator-sets">Operator Sets</h2>
+<p>Operator sets, as described in <a href="https://github.com/eigenfoundation/ELIPs/blob/main/ELIPs/ELIP-002.md#operator-sets">ELIP-002</a>, are useful for AVSs to configure operator groupings which can be assigned different tasks, rewarded based on their strategy allocations, and slashed according to different rules. Operator sets are defined in <a href="../../src/contracts/libraries/OperatorSetLib.sol"><code>libraries/OperatorSetLib.sol</code></a>:</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice An operator set identified by the AVS address and an identifier</span>
+<span class="cm"> * @param avs The address of the AVS this operator set belongs to</span>
+<span class="cm"> * @param id The unique identifier for the operator set</span>
+<span class="cm"> */</span>
+<span class="kt">struct</span><span class="w"> </span><span class="nv">OperatorSet</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">avs</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32</span><span class="w"> </span><span class="nv">id</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The <code>AllocationManager</code> tracks operator sets and members of operator sets in the following mappings:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">/// @dev Lists the operator set ids an AVS has created</span>
+<span class="kt">mapping</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">avs</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span>EnumerableSet<span class="p">.</span>UintSet<span class="p">)</span><span class="w"> </span><span class="kt">internal</span><span class="w"> </span>_operatorSets<span class="p">;</span>
+
+<span class="c1">/// @dev Lists the members of an AVS&#39;s operator set</span>
+<span class="kt">mapping</span><span class="p">(</span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">operatorSetKey</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span>EnumerableSet<span class="p">.</span>AddressSet<span class="p">)</span><span class="w"> </span><span class="kt">internal</span><span class="w"> </span>_operatorSetMembers<span class="p">;</span>
+</code></pre></div>
+<p>Every <code>OperatorSet</code> corresponds to a single AVS, as indicated by the <code>avs</code> parameter. On creation, the AVS provides an <code>id</code> (unique to that AVS), as well as a list of <code>strategies</code> the <code>OperatorSet</code> includes. Together, the <code>avs</code> and <code>id</code> form the <code>key</code> that uniquely identifies a given <code>OperatorSet</code>. Operators can register to and deregister from operator sets. In combination with allocating slashable magnitude, operator set registration forms the basis of operator slashability (discussed further in <a href="#allocations-and-slashing">Allocations and Slashing</a>).</p>
+<p><strong>Concepts:</strong>
+* <a href="#registration-status">Registration Status</a></p>
+<p><strong>Methods:</strong>
+* <a href="#createoperatorsets"><code>createOperatorSets</code></a>
+* <a href="#addstrategiestooperatorset"><code>addStrategiesToOperatorSet</code></a>
+* <a href="#removestrategiesfromoperatorset"><code>removeStrategiesFromOperatorSet</code></a>
+* <a href="#registerforoperatorsets"><code>registerForOperatorSets</code></a>
+* <a href="#deregisterfromoperatorsets"><code>deregisterFromOperatorSets</code></a></p>
+<h4 id="registration-status">Registration Status</h4>
+<p>Operator registration and deregistration is tracked in the following state variables:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">/// @dev Lists the operator sets the operator is registered for. Note that an operator</span>
+<span class="c1">/// can be registered without allocated stake. Likewise, an operator can allocate</span>
+<span class="c1">/// without being registered.</span>
+<span class="kt">mapping</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span>EnumerableSet<span class="p">.</span>Bytes32Set<span class="p">)</span><span class="w"> </span><span class="kt">internal</span><span class="w"> </span>registeredSets<span class="p">;</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @notice Contains registration details for an operator pertaining to an operator set</span>
+<span class="cm"> * @param registered Whether the operator is currently registered for the operator set</span>
+<span class="cm"> * @param slashableUntil If the operator is not registered, they are still slashable until</span>
+<span class="cm"> * this block is reached.</span>
+<span class="cm"> */</span>
+<span class="kt">struct</span><span class="w"> </span><span class="nv">RegistrationStatus</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nv">registered</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32</span><span class="w"> </span><span class="nv">slashableUntil</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">/// @dev Contains the operator&#39;s registration status for an operator set.</span>
+<span class="kt">mapping</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kt">mapping</span><span class="p">(</span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">operatorSetKey</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span>RegistrationStatus<span class="p">))</span><span class="w"> </span><span class="kt">internal</span><span class="w"> </span>registrationStatus<span class="p">;</span>
+</code></pre></div>
+<p>For each operator, <code>registeredSets</code> keeps a list of <code>OperatorSet</code> <code>keys</code> for which the operator is currently registered. Each operator registration and deregistration respectively adds and removes the relevant <code>key</code> for a given operator. An additional factor in registration is the operator's <code>RegistrationStatus</code>.</p>
+<p>The <code>RegistrationStatus.slashableUntil</code> value is used to ensure an operator remains slashable for a period of time after they initiate deregistration. This is to prevent an operator from committing a slashable offence and immediately deregistering to avoid penalty. This means that when an operator deregisters from an operator set, their <code>RegistrationStatus.slashableUntil</code> value is set to <code>block.number + DEALLOCATION_DELAY</code>.</p>
+<h4 id="createoperatorsets"><code>createOperatorSets</code></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice Parameters used by an AVS to create new operator sets</span>
+<span class="cm"> * @param operatorSetId the id of the operator set to create</span>
+<span class="cm"> * @param strategies the strategies to add as slashable to the operator set</span>
+<span class="cm"> */</span>
+<span class="kt">struct</span><span class="w"> </span><span class="nv">CreateSetParams</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint32</span><span class="w"> </span><span class="nv">operatorSetId</span><span class="p">;</span>
+<span class="w">    </span>IStrategy<span class="p">[]</span><span class="w"> </span>strategies<span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @notice Allows an AVS to create new operator sets, defining strategies that the operator set uses</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">createOperatorSets</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">avs</span><span class="p">,</span>
+<span class="w">    </span>CreateSetParams<span class="p">[]</span><span class="w"> </span>calldata<span class="w"> </span>params
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>checkCanCall<span class="p">(</span>avs<span class="p">)</span>
+</code></pre></div>
+<p><em>Note: this method can be called directly by an AVS, or by a caller authorized by the AVS. See <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a> for details.</em></p>
+<p>AVSs use this method to create new operator sets. An AVS can create as many operator sets as they desire, depending on their needs. Once created, operators can <a href="#modifyallocations">allocate slashable stake to</a> and <a href="#registerforoperatorsets">register for</a> these operator sets.</p>
+<p>On creation, the <code>avs</code> specifies an <code>operatorSetId</code> unique to the AVS. Together, the <code>avs</code> address and <code>operatorSetId</code> create a <code>key</code> that uniquely identifies this operator set throughout the <code>AllocationManager</code>.</p>
+<p>Optionally, the <code>avs</code> can provide a list of <code>strategies</code>, specifying which strategies will be slashable for the new operator set. AVSs may create operator sets with various strategies based on their needs - and strategies may be added to more than one operator set.</p>
+<p><em>Effects</em>:
+* For each <code>CreateSetParams</code> element:
+    * For each <code>params.strategies</code> element:
+        * Add <code>strategy</code> to <code>_operatorSetStrategies[operatorSetKey]</code>
+        * Emits <code>StrategyAddedToOperatorSet</code> event</p>
+<p><em>Requirements</em>:
+* Caller MUST be authorized, either as the AVS itself or an admin/appointee (see <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a>)
+* AVS MUST have registered metadata via calling <code>updateAVSMetadataURI</code>
+* For each <code>CreateSetParams</code> element:
+    * Each <code>params.operatorSetId</code> MUST NOT already exist in <code>_operatorSets[avs]</code></p>
+<h4 id="addstrategiestooperatorset"><code>addStrategiesToOperatorSet</code></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice Allows an AVS to add strategies to an operator set</span>
+<span class="cm"> * @dev Strategies MUST NOT already exist in the operator set</span>
+<span class="cm"> * @param avs the avs to set strategies for</span>
+<span class="cm"> * @param operatorSetId the operator set to add strategies to</span>
+<span class="cm"> * @param strategies the strategies to add</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">addStrategiesToOperatorSet</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">avs</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint32</span><span class="w"> </span><span class="nv">operatorSetId</span><span class="p">,</span>
+<span class="w">    </span>IStrategy<span class="p">[]</span><span class="w"> </span>calldata<span class="w"> </span>strategies
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>checkCanCall<span class="p">(</span>avs<span class="p">)</span>
+</code></pre></div>
+<p><em>Note: this method can be called directly by an AVS, or by a caller authorized by the AVS. See <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a> for details.</em></p>
+<p>This function allows an AVS to add slashable strategies to a given operator set. If any strategy is already registered for the given operator set, the entire call will fail.</p>
+<p><em>Effects</em>:
+* For each <code>strategies</code> element:
+    * Adds the strategy to <code>_operatorSetStrategies[operatorSetKey]</code>
+    * Emits a <code>StrategyAddedToOperatorSet</code> event</p>
+<p><em>Requirements</em>:
+* Caller MUST be authorized, either as the AVS itself or an admin/appointee (see <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a>)
+* The operator set MUST be registered for the AVS
+* Each proposed strategy MUST NOT be registered for the operator set</p>
+<h4 id="removestrategiesfromoperatorset"><code>removeStrategiesFromOperatorSet</code></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice Allows an AVS to remove strategies from an operator set</span>
+<span class="cm"> * @dev Strategies MUST already exist in the operator set</span>
+<span class="cm"> * @param avs the avs to remove strategies for</span>
+<span class="cm"> * @param operatorSetId the operator set to remove strategies from</span>
+<span class="cm"> * @param strategies the strategies to remove</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">removeStrategiesFromOperatorSet</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">avs</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint32</span><span class="w"> </span><span class="nv">operatorSetId</span><span class="p">,</span>
+<span class="w">    </span>IStrategy<span class="p">[]</span><span class="w"> </span>calldata<span class="w"> </span>strategies
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>checkCanCall<span class="p">(</span>avs<span class="p">)</span>
+</code></pre></div>
+<p><em>Note: this method can be called directly by an AVS, or by a caller authorized by the AVS. See <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a> for details.</em></p>
+<p>This function allows an AVS to remove slashable strategies from a given operator set. If any strategy is not registered for the given operator set, the entire call will fail.</p>
+<p><em>Effects</em>:
+* For each <code>strategies</code> element:
+    * Removes the strategy from <code>_operatorSetStrategies[operatorSetKey]</code>
+    * Emits a <code>StrategyRemovedFromOperatorSet</code> event</p>
+<p><em>Requirements</em>:
+* Caller MUST be authorized, either as the AVS itself or an admin/appointee (see <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a>)
+* The operator set MUST be registered for the AVS
+* Each proposed strategy MUST be registered for the operator set</p>
+<h4 id="registerforoperatorsets"><code>registerForOperatorSets</code></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice Parameters used to register for an AVS&#39;s operator sets</span>
+<span class="cm"> * @param avs the AVS being registered for</span>
+<span class="cm"> * @param operatorSetIds the operator sets within the AVS to register for</span>
+<span class="cm"> * @param data extra data to be passed to the AVS to complete registration</span>
+<span class="cm"> */</span>
+<span class="kt">struct</span><span class="w"> </span><span class="nv">RegisterParams</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">avs</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32</span><span class="p">[]</span><span class="w"> </span>operatorSetIds<span class="p">;</span>
+<span class="w">    </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">data</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @notice Allows an operator to register for one or more operator sets for an AVS. If the operator</span>
+<span class="cm"> * has any stake allocated to these operator sets, it immediately becomes slashable.</span>
+<span class="cm"> * @dev After registering within the ALM, this method calls the AVS Registrar&#39;s `IAVSRegistrar.</span>
+<span class="cm"> * registerOperator` method to complete registration. This call MUST succeed in order for </span>
+<span class="cm"> * registration to be successful.</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">registerForOperatorSets</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="p">,</span>
+<span class="w">    </span>RegisterParams<span class="w"> </span>calldata<span class="w"> </span>params
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>onlyWhenNotPaused<span class="p">(</span>PAUSED_OPERATOR_SET_REGISTRATION_AND_DEREGISTRATION<span class="p">)</span>
+<span class="w">    </span>checkCanCall<span class="p">(</span>operator<span class="p">)</span>
+</code></pre></div>
+<p><em>Note: this method can be called directly by an operator, or by a caller authorized by the operator. See <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a> for details.</em></p>
+<p>An operator may call this function to register for any number of operator sets of a given AVS at once. There are two very important details to know about this method:
+1. As part of registration, each operator set is added to the operator's <code>registeredSets</code>. Note that for each newly-registered set, <strong>any stake allocations to the operator set become immediately slashable</strong>.
+2. Once all sets have been added, the AVS's configured <code>IAVSRegistrar</code> is called to confirm and complete registration. <em>This call MUST NOT revert,</em> as <strong>AVSs are expected to use this call to reject ineligible operators</strong> (according to their own custom logic). Note that if the AVS has not configured a registrar, the <code>avs</code> itself is called.</p>
+<p>This method makes an external call to the <code>IAVSRegistrar.registerOperator</code> method, passing in the registering <code>operator</code>, the <code>operatorSetIds</code> being registered for, and the input <code>params.data</code> provided during registration. From <a href="../../src/contracts/interfaces/IAVSRegistrar.sol"><code>IAVSRegistrar.sol</code></a>:</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice Called by the AllocationManager when an operator wants to register</span>
+<span class="cm"> * for one or more operator sets. This method should revert if registration</span>
+<span class="cm"> * is unsuccessful.</span>
+<span class="cm"> * @param operator the registering operator</span>
+<span class="cm"> * @param operatorSetIds the list of operator set ids being registered for</span>
+<span class="cm"> * @param data arbitrary data the operator can provide as part of registration</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">registerOperator</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32</span><span class="p">[]</span><span class="w"> </span>calldata<span class="w"> </span>operatorSetIds<span class="p">,</span><span class="w"> </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">calldata</span><span class="w"> </span>data<span class="p">)</span><span class="w"> </span><span class="kt">external</span><span class="p">;</span>
+</code></pre></div>
+<p><em>Effects</em>:
+* Adds the proposed operator sets to the operator's list of registered sets (<code>registeredSets</code>)
+* Adds the operator to <code>_operatorSetMembers</code> for each operator set
+* Marks the operator as registered for the given operator sets (in <code>registrationStatus</code>)
+* Passes the <code>params</code> for registration to the AVS's <code>AVSRegistrar</code>, which can arbitrarily handle the registration request
+* Emits an <code>OperatorAddedToOperatorSet</code> event for each operator</p>
+<p><em>Requirements</em>:
+* Pause status MUST NOT be set: <code>PAUSED_OPERATOR_SET_REGISTRATION_AND_DEREGISTRATION</code>
+* <code>operator</code> MUST be registered as an operator in the <code>DelegationManager</code>
+* Caller MUST be authorized, either the operator themselves, or an admin/appointee (see <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a>)
+* Each <code>operatorSetId</code> MUST exist for the given AVS
+* Operator MUST NOT already be registered for any proposed operator sets
+* If operator has deregistered, operator MUST NOT be slashable anymore (i.e. the <code>DEALLOCATION_DELAY</code> must have passed)
+* The call to the AVS's configured <code>IAVSRegistrar</code> MUST NOT revert</p>
+<h4 id="deregisterfromoperatorsets"><code>deregisterFromOperatorSets</code></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice Parameters used to deregister from an AVS&#39;s operator sets</span>
+<span class="cm"> * @param operator the operator being deregistered</span>
+<span class="cm"> * @param avs the avs being deregistered from</span>
+<span class="cm"> * @param operatorSetIds the operator sets within the AVS being deregistered from</span>
+<span class="cm"> */</span>
+<span class="kt">struct</span><span class="w"> </span><span class="nv">DeregisterParams</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">avs</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32</span><span class="p">[]</span><span class="w"> </span>operatorSetIds<span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @notice Allows an operator or AVS to deregister the operator from one or more of the AVS&#39;s operator sets.</span>
+<span class="cm"> * If the operator has any slashable stake allocated to the AVS, it remains slashable until the</span>
+<span class="cm"> * DEALLOCATION_DELAY has passed.</span>
+<span class="cm"> * @dev After deregistering within the ALM, this method calls the AVS Registrar&#39;s `IAVSRegistrar.</span>
+<span class="cm"> * deregisterOperator` method to complete deregistration. This call MUST succeed in order for</span>
+<span class="cm"> * deregistration to be successful.</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">deregisterFromOperatorSets</span><span class="p">(</span>
+<span class="w">    </span>DeregisterParams<span class="w"> </span>calldata<span class="w"> </span>params
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>onlyWhenNotPaused<span class="p">(</span>PAUSED_OPERATOR_SET_REGISTRATION_AND_DEREGISTRATION<span class="p">)</span>
+</code></pre></div>
+<p><em>Note: this method can be called directly by an operator/AVS, or by a caller authorized by the operator/AVS. See <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a> for details.</em></p>
+<p>This method may be called by EITHER an operator OR an AVS to which an operator is registered; it is intended to allow deregistration to be triggered by EITHER party. This method generally inverts the effects of <code>registerForOperatorSets</code>, with two specific exceptions:
+1. As part of deregistration, each operator set is removed from the operator's <code>registeredSets</code>. HOWEVER, <strong>any stake allocations to that operator set will remain slashable for <code>DEALLOCATION_DELAY</code> blocks.</strong> The operator will not be allowed to register for the operator set again until this slashable window has passed.
+2. Once all sets have been removed, the AVS's configured <code>IAVSRegistrar</code> is called to complete deregistration on the AVS side.</p>
+<p>This method makes an external call to the <code>IAVSRegistrar.deregisterOperator</code> method, passing in the deregistering <code>operator</code> and the <code>operatorSetIds</code> being deregistered from. From <a href="../../src/contracts/interfaces/IAVSRegistrar.sol"><code>IAVSRegistrar.sol</code></a>:</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice Called by the AllocationManager when an operator is deregistered from</span>
+<span class="cm"> * one or more operator sets. If this method reverts, it is ignored.</span>
+<span class="cm"> * @param operator the deregistering operator</span>
+<span class="cm"> * @param operatorSetIds the list of operator set ids being deregistered from</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">deregisterOperator</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32</span><span class="p">[]</span><span class="w"> </span>calldata<span class="w"> </span>operatorSetIds<span class="p">)</span><span class="w"> </span><span class="kt">external</span><span class="p">;</span>
+</code></pre></div>
+<p><em>Effects</em>:
+* Removes the proposed operator sets from the operator's list of registered sets (<code>registeredSets</code>)
+* Removes the operator from <code>_operatorSetMembers</code> for each operator set
+* Updates the operator's <code>registrationStatus</code> with:
+    * <code>registered: false</code>
+    * <code>slashableUntil: block.number + DEALLOCATION_DELAY</code>
+        * As mentioned above, this allows for AVSs to slash deregistered operators until <code>block.number == slashableUntil</code>
+* Emits an <code>OperatorRemovedFromOperatorSet</code> event for each operator
+* Passes the <code>operator</code> and <code>operatorSetIds</code> to the AVS's <code>AVSRegistrar</code>, which can arbitrarily handle the deregistration request</p>
+<p><em>Requirements</em>:</p>
+<!-- * Address MUST be registered as an operator -->
+<ul>
+<li>Pause status MUST NOT be set: <code>PAUSED_OPERATOR_SET_REGISTRATION_AND_DEREGISTRATION</code></li>
+<li>Caller MUST be authorized, either the operator/AVS themselves, or an admin/appointee (see <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a>)</li>
+<li>Each operator set ID MUST exist for the given AVS</li>
+<li>Operator MUST be registered for the given operator sets</li>
+<li>Note that, unlike <code>registerForOperatorSets</code>, the AVS's <code>AVSRegistrar</code> MAY revert and the deregistration will still succeed</li>
+</ul>
+<hr />
+<h2 id="allocations-and-slashing">Allocations and Slashing</h2>
+<p><a href="#operator-sets">Operator set registration</a> is one step of preparing to participate in an AVS. When an operator successfully registers for an operator set, it is because the AVS in question is ready to assign them tasks. However, it follows that <em>before assigning tasks</em> to an operator, an AVS will expect operators to allocate slashable stake to the operator set such that the AVS has some economic security.</p>
+<p>For this reason, it is expected that many AVSs will require operators to <strong>allocate slashable stake BEFORE registering for an operator set</strong>. This is due to <a href="#registerforoperatorsets"><code>registerForOperatorSets</code></a> serving in part as an AVS's "consent mechanism," as calling <code>IAVSRegsitrar.registerOperator</code> allows the AVS to query the amount of slashable stake the operator can provide when assigned tasks.</p>
+<p>It is only once an operator is both <em>registered for an operator set</em> and <em>has an active allocation to that operator set</em> that the associated AVS can slash actual stake from an operator.</p>
+<p>See <a href="https://github.com/eigenfoundation/ELIPs/blob/main/ELIPs/ELIP-002.md#unique-stake-allocation--deallocation">ELIP-002#Unique Stake Allocation &amp; Deallocation</a> for additional context.</p>
+<p><strong>Concepts:</strong>
+* <a href="#max-vs-encumbered-magnitude">Max vs Encumbered Magnitude</a>
+* <a href="#evaluating-the-current-allocation">Evaluating the "Current" Allocation</a>
+* <a href="#evaluating-whether-an-allocation-is-slashable">Evaluating Whether an Allocation is "Slashable"</a></p>
+<p><strong>Methods:</strong>
+* <a href="#modifyallocations"><code>modifyAllocations</code></a>
+* <a href="#cleardeallocationqueue"><code>clearDeallocationQueue</code></a>
+* <a href="#slashoperator"><code>slashOperator</code></a></p>
+<h4 id="max-vs-encumbered-magnitude">Max vs Encumbered Magnitude</h4>
+<p>Operators allocate <em>magnitude</em>, which represents a proportion of their total stake. For a given strategy, the <code>AllocationManager</code> tracks two quantities, <em>max magnitude</em> and <em>encumbered magnitude</em>:</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice Contains allocation info for a specific strategy</span>
+<span class="cm"> * @param maxMagnitude the maximum magnitude that can be allocated between all operator sets</span>
+<span class="cm"> * @param encumberedMagnitude the currently-allocated magnitude for the strategy</span>
+<span class="cm"> */</span>
+<span class="kt">struct</span><span class="w"> </span><span class="nv">StrategyInfo</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint64</span><span class="w"> </span><span class="nv">maxMagnitude</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint64</span><span class="w"> </span><span class="nv">encumberedMagnitude</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">/// @dev Contains a history of the operator&#39;s maximum magnitude for a given strategy</span>
+<span class="kt">mapping</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kt">mapping</span><span class="p">(</span>IStrategy<span class="w"> </span>strategy<span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span>Snapshots<span class="p">.</span>DefaultWadHistory<span class="p">))</span><span class="w"> </span><span class="kt">internal</span><span class="w"> </span>_maxMagnitudeHistory<span class="p">;</span>
+
+<span class="c1">/// @dev For a strategy, contains the amount of magnitude an operator has allocated to operator sets</span>
+<span class="c1">/// @dev This value should be read with caution, as deallocations that are completable but not</span>
+<span class="c1">///      popped off the queue are still included in the encumbered magnitude</span>
+<span class="kt">mapping</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kt">mapping</span><span class="p">(</span>IStrategy<span class="w"> </span>strategy<span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kt">uint64</span><span class="p">))</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>encumberedMagnitude<span class="p">;</span>
+</code></pre></div>
+<p>An operator's max magnitude starts at <code>1 WAD</code> (<code>1e18</code>), and is decreased when they are slashed. Max magnitude represents "100%" of allocatable magnitude. When an operator allocates magnitude from a strategy to an operator set, their encumbered magnitude for that strategy increases. An operator cannot allocate &gt; 100%; therefore, a strategy's encumbered magnitude can never exceed that strategy's max magnitude.</p>
+<h4 id="evaluating-the-current-allocation">Evaluating the "Current" Allocation</h4>
+<p>As mentioned in the previous section, allocations and deallocations take place on a delay, and as such the <code>Allocation</code> struct has both a <code>currentMagnitude</code>, and <code>pendingDiff</code> / <code>effectBlock</code> fields:</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice Defines allocation information from a strategy to an operator set, for an operator</span>
+<span class="cm"> * @param currentMagnitude the current magnitude allocated from the strategy to the operator set</span>
+<span class="cm"> * @param pendingDiff a pending change in magnitude, if it exists (0 otherwise)</span>
+<span class="cm"> * @param effectBlock the block at which the pending magnitude diff will take effect</span>
+<span class="cm"> */</span>
+<span class="kt">struct</span><span class="w"> </span><span class="nv">Allocation</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint64</span><span class="w"> </span><span class="nv">currentMagnitude</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int128</span><span class="w"> </span><span class="nv">pendingDiff</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32</span><span class="w"> </span><span class="nv">effectBlock</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Although the <code>allocations</code> mapping can be used to fetch an <code>Allocation</code> directly, you'll notice a convention in the <code>AllocationManager</code> of using the <code>_getUpdatedAllocation</code> helper, instead. This helper reads an existing <code>Allocation</code>, then evaluates <code>block.number</code> against <code>Allocation.effectBlock</code> to determine whether or not to apply the <code>pendingDiff</code>. 
+* If the diff can be applied, the helper returns an <code>Allocation</code> with an updated <code>currentMagnitude</code> and zeroed out <code>pendingDiff</code> and <code>effectBlock</code> fields -- as if the modification has already been completed.
+* Otherwise, the <code>Allocation</code> is returned from storage unmodified.</p>
+<p>Generally, when an <code>Allocation</code> is mentioned in this doc (or used within the <code>AllocationManager.sol</code> contract), we are referring to the "Current" <code>Allocation</code> as defined above.</p>
+<h4 id="evaluating-whether-an-allocation-is-slashable">Evaluating Whether an Allocation is "Slashable"</h4>
+<p>Given an <code>operator</code> and an <code>Allocation</code> from a <code>strategy</code> to an AVS's <code>OperatorSet</code>, the <code>AllocationManager</code> uses the following criteria to determine whether the operator's allocation is slashable:
+1. The <code>operator</code> must be registered for the operator set, or if they are deregistered, they must still be slashable (See <a href="#registration-status">Registration Status</a>).
+2. The AVS must have added the <code>strategy</code> to the operator set (See <a href="#addstrategiestooperatorset"><code>addStrategiesToOperatorSet</code></a> and <a href="#removestrategiesfromoperatorset"><code>removeStrategiesFromOperatorSet</code></a>)
+3. The existing <code>Allocation</code> must have a nonzero <code>Allocation.currentMagnitude</code></p>
+<p>If ALL of these are true, the <code>AllocationManager</code> will allow the AVS to slash the <code>operator's</code> <code>Allocation</code>.</p>
+<h4 id="evaluating-how-much-of-the-allocation-is-slashable">Evaluating How Much of the Allocation is "Slashable"</h4>
+<p>The <code>getMinimumSlashableStake</code> calculates the minimum amount of stake that will be slashable at a specified future block. This computation accounts for each operator’s allocated stake from different strategies within an operator set. The function considers pending allocation changes that could reduce the slashable stake over time, ensuring a minimum guaranteed value. Because this is a forecast, the slashable stake at any given moment is a discrete value, but when looking ahead to a future block, the function provides the lowest possible amount, factoring in any planned allocation adjustments that will take effect within the specified timeframe.</p>
+<p>Please see <a href="https://github.com/Layr-Labs/eigenlayer-contracts/blob/dev/src/contracts/interfaces/IAllocationManager.sol#L577">IAllocationManager.sol:getMinimumSlashableStake</a> for more detail.</p>
+<h4 id="modifyallocations"><code>modifyAllocations</code></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice struct used to modify the allocation of slashable magnitude to an operator set</span>
+<span class="cm"> * @param operatorSet the operator set to modify the allocation for</span>
+<span class="cm"> * @param strategies the strategies to modify allocations for</span>
+<span class="cm"> * @param newMagnitudes the new magnitude to allocate for each strategy to this operator set</span>
+<span class="cm"> */</span>
+<span class="kt">struct</span><span class="w"> </span><span class="nv">AllocateParams</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span>OperatorSet<span class="w"> </span>operatorSet<span class="p">;</span>
+<span class="w">    </span>IStrategy<span class="p">[]</span><span class="w"> </span>strategies<span class="p">;</span>
+<span class="w">    </span><span class="kt">uint64</span><span class="p">[]</span><span class="w"> </span>newMagnitudes<span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @notice Modifies the proportions of slashable stake allocated to an operator set from a list of strategies</span>
+<span class="cm"> * Note that deallocations remain slashable for DEALLOCATION_DELAY blocks therefore when they are cleared they may</span>
+<span class="cm"> * free up less allocatable magnitude than initially deallocated.</span>
+<span class="cm"> * @param operator the operator to modify allocations for</span>
+<span class="cm"> * @param params array of magnitude adjustments for one or more operator sets</span>
+<span class="cm"> * @dev Updates encumberedMagnitude for the updated strategies</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">modifyAllocations</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span>AllocateParams<span class="p">[]</span><span class="w"> </span>calldata<span class="w"> </span>params
+<span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>onlyWhenNotPaused<span class="p">(</span>PAUSED_MODIFY_ALLOCATIONS<span class="p">)</span>
+</code></pre></div>
+<p><em>Note: this method can be called directly by an operator, or by a caller authorized by the operator. See <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a> for details.</em></p>
+<p>This function is called by an operator to EITHER increase OR decrease the slashable magnitude allocated from a strategy to an operator set. As input, the operator provides an operator set as the target, and a list of strategies and corresponding <code>newMagnitudes</code> to allocate. The <code>newMagnitude</code> value is compared against the operator's current <code>Allocation</code> for that operator set/strategy:
+* If <code>newMagnitude</code> is <em>greater than</em> <code>Allocation.currentMagnitude</code>, this is an allocation
+* If <code>newMagnitude</code> is <em>less than</em> <code>Allocation.currentMagnitude</code>, this is a deallocation
+* If <code>newMagnitude</code> is <em>equal to</em> <code>Allocation.currentMagnitude</code>, this is invalid (revert)</p>
+<p>Allocation modifications play by different rules depending on a few factors. Recall that at all times, the <code>encumberedMagnitude</code> for a strategy may not exceed that strategy's <code>maxMagnitude</code>. Additionally, note that <em>before processing a modification for a strategy,</em> the <code>deallocationQueue</code> for that strategy is first cleared. This ensures any completable deallocations are processed first, freeing up magnitude for allocation. This process is further explained in <a href="#cleardeallocationqueue"><code>clearDeallocationQueue</code></a>. </p>
+<p>Finally, <code>modifyAllocations</code> does NOT require an allocation to consider whether its corresponding strategy is relevant to the operator set in question. This is primarily to cut down on complexity. Because <a href="#removestrategiesfromoperatorset"><code>removeStrategiesFromOperatorSet</code></a> always allows an AVS to <em>remove</em> strategies from consideration, we always need to be sure an operator can initiate a <em>deallocation</em> for such strategies. Although there's not a clear usecase for <em>allocating</em> when a strategy is not included in an operator set, we elected not to check for this. It's possible some AVSs may announce a strategy is being added ahead of time specifically to encourage allocations in advance. <strong>It is expected behavior</strong> that an AVS adding a strategy to an operator set makes any existing allocations to that strategy instantly slashable.</p>
+<p><strong>If we are handling an <em>increase in magnitude</em> (allocation):</strong></p>
+<ul>
+<li>The increase in magnitude is immediately added to the strategy's <code>encumberedMagnitude</code>. This ensures that subsequent <em>allocations to other operator sets from the same strategy</em> will not go above the strategy's <code>maxMagnitude</code>.</li>
+<li>The <code>allocation.pendingDiff</code> is set, with an <code>allocation.effectBlock</code> equal to the current block plus the operator's configured allocation delay.</li>
+</ul>
+<p><strong>If we are handling a <em>decrease in magnitude</em> (deallocation):</strong></p>
+<p>First, evaluate whether the operator's <em>existing allocation is currently slashable</em> by the AVS. This is important because the AVS might be using the existing allocation to secure a task given to this operator. See <a href="#evaluating-whether-an-allocation-is-slashable">Evaluating Whether an Allocation is "Slashable"</a> for details.</p>
+<p>Next, <em>if the existing allocation IS slashable</em>:</p>
+<ul>
+<li>The <code>allocation.pendingDiff</code> is set, with an <code>allocation.effectBlock</code> equal to the current block plus <code>DEALLOCATION_DELAY + 1</code>. This means the existing allocation <em>remains slashable</em> for <code>DEALLOCATION_DELAY</code> blocks.</li>
+<li>The <em>operator set</em> is pushed to the operator's <code>deallocationQueue</code> for that strategy, denoting that there is a pending deallocation for this <code>(operatorSet, strategy)</code>. This is an ordered queue that enforces deallocations are processed sequentially and is used both in this method and in <a href="#cleardeallocationqueue"><code>clearDeallocationQueue</code></a>.</li>
+</ul>
+<p>Alternatively, <em>if the existing allocation IS NOT slashable</em>, the deallocated amount is immediately <strong>freed</strong>. It is subtracted from the strategy's encumbered magnitude and can be used for subsequent allocations. This is the only type of update that does not result in a "pending modification." The rationale here is that if the existing allocation is not slashable, the AVS does not need it to secure tasks, and therefore does not need to enforce a deallocation delay.</p>
+<p>Another point of consideration are race conditions involving a slashing event and a deallocation occurring for an operator. Consider the following scenario with an operator having an allocation of 500 magnitude and trying to deallocate setting it to 250. However in the same block <em>right</em> before calling <code>modifyAllocations</code> the operator is slashed 100% by the OperatorSet, setting the current magnitude to 0. Now the operator's deallocation is considered an allocation and ends up allocating 250 magnitude when they were trying to <em>deallocate</em>. This is a potential griefing vector by malicious AVSs and a known shortcoming. In such scenarios, the operator should simply deallocate all their allocations to 0 so that they don't accidentally allocate more slashable stake. In general for non malicious AVSs, slashing is deemed to be a very occasional occurrence and this race condition to not be impacting to operators.</p>
+<p><em>Effects</em>:
+* For each <code>AllocateParams</code> element:
+    * Complete any existing deallocations (See <a href="#cleardeallocationqueue"><code>clearDeallocationQueue</code></a>)
+    * Update the operator's <code>encumberedMagnitude</code>, <code>allocations</code>, and <code>deallocationQueue</code> according to the rules described above. Additionally:
+        * If <code>encumberedMagnitude</code> is updated, emits <code>EncumberedMagnitudeUpdated</code>
+        * If a pending modification is created:
+            * Adds the <code>strategy</code> to <code>allocatedStrategies[operator][operatorSetKey]</code> (if not present)
+            * Adds the <code>operatorSetKey</code> to <code>allocatedSets[operator]</code> (if not present)
+        * If the allocation now has a <code>currentMagnitude</code> of 0:
+            * Removes <code>strategy</code> from the <code>allocatedStrategies[operator][operatorSetKey]</code> list
+            * If this list now has a length of 0, remove <code>operatorSetKey</code> from <code>allocatedSets[operator]</code>
+    * Emits an <code>AllocationUpdated</code> event</p>
+<p><em>Requirements</em>:
+* Pause status MUST NOT be set: <code>PAUSED_MODIFY_ALLOCATIONS</code>
+* Caller MUST be authorized, either as the operator themselves or an admin/appointee (see <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a>)
+* Operator MUST have already set an allocation delay (See <a href="#setallocationdelay"><code>setAllocationDelay</code></a>)
+* For each <code>AllocationParams</code> element:
+    * Provided strategies MUST be of equal length to provided magnitudes for a given <code>AllocateParams</code> object
+    * Operator set MUST exist for each specified AVS
+    * Operator MUST NOT have pending, non-completable modifications for any given strategy
+    * New magnitudes MUST NOT match existing ones
+    * New encumbered magnitude MUST NOT exceed the operator's max magnitude for the given strategy</p>
+<h4 id="cleardeallocationqueue"><code>clearDeallocationQueue</code></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice This function takes a list of strategies and for each strategy, removes from the deallocationQueue</span>
+<span class="cm"> * all clearable deallocations up to max `numToClear` number of deallocations, updating the encumberedMagnitude</span>
+<span class="cm"> * of the operator as needed.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param operator address to clear deallocations for</span>
+<span class="cm"> * @param strategies a list of strategies to clear deallocations for</span>
+<span class="cm"> * @param numToClear a list of number of pending deallocations to clear for each strategy</span>
+<span class="cm"> *</span>
+<span class="cm"> * @dev can be called permissionlessly by anyone</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">clearDeallocationQueue</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="p">,</span>
+<span class="w">    </span>IStrategy<span class="p">[]</span><span class="w"> </span>calldata<span class="w"> </span>strategies<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint16</span><span class="p">[]</span><span class="w"> </span>calldata<span class="w"> </span>numToClear
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>onlyWhenNotPaused<span class="p">(</span>PAUSED_MODIFY_ALLOCATIONS<span class="p">)</span>
+</code></pre></div>
+<p>This function is used to complete any eligible pending deallocations for an operator. The function takes an operator, a list of strategies, and a corresponding number of pending deallocations to complete. </p>
+<p>Clearing pending deallocations plays an important role in <a href="#modifyallocations"><code>modifyAllocations</code></a>, as completable deallocations represent magnitude that can be freed for re-allocation to a different operator set. This method exists as a convenience for operators that want to complete pending deallocations as a standalone operation. However, <code>modifyAllocations</code> will <em>automatically</em> clear any eligible deallocations when processing an allocation modification for a given strategy.</p>
+<p>For each strategy, the method iterates over <code>deallocationQueue[operator][strategy]</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">/// @dev For a strategy, keeps an ordered queue of operator sets that have pending deallocations</span>
+<span class="c1">/// These must be completed in order to free up magnitude for future allocation</span>
+<span class="kt">mapping</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kt">mapping</span><span class="p">(</span>IStrategy<span class="w"> </span>strategy<span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span>DoubleEndedQueue<span class="p">.</span>Bytes32Deque<span class="p">))</span><span class="w"> </span><span class="kt">internal</span><span class="w"> </span>deallocationQueue<span class="p">;</span>
+</code></pre></div>
+<p>This queue contains a per-strategy ordered list of operator sets that, due to prior calls by the <code>operator</code> to <code>modifyAllocations</code>, have a pending decrease in slashable magnitude. For each operator set in the queue, the corresponding allocation for that operator set is evaluated. If its <code>effectBlock</code> has been reached, the deallocation is completed, freeing up the deallocated magnitude by subtracting it from <code>encumberedMagnitude[operator][strategy]</code>. The corresponding entry is then popped from the front of the queue.</p>
+<p>This method stops iterating when: the queue is empty, a deallocation is reached that cannot be completed yet, or when it has cleared <code>numToClear</code> entries from the queue.</p>
+<p><em>Effects</em>:
+* For each <code>strategy</code> and <em>completable</em> deallocation in <code>deallocationQueue[operator][strategy]</code>:
+    * Pops the corresponding operator set from the <code>deallocationQueue</code>
+    * Reduces <code>allocation.currentMagnitude</code> by the deallocated amount
+    * Sets <code>allocation.pendingDiff</code> and <code>allocation.effectBlock</code> to 0
+    * Adds the deallocated amount to the strategy's <code>encumberedMagnitude</code>
+    * Emits <code>EncumberedMagnitudeUpdated</code>
+    * Additionally, if the deallocation leaves <code>allocation.currentMagnitude</code> equal to zero:
+        * Removes <code>strategy</code> from the <code>allocatedStrategies[operator][operatorSetKey]</code> list
+        * If this list now has a length of 0, remove <code>operatorSetKey</code> from <code>allocatedSets[operator]</code></p>
+<p><em>Requirements</em>:
+* Pause status MUST NOT be set: <code>PAUSED_MODIFY_ALLOCATIONS</code>
+* Strategy list MUST be equal length of <code>numToClear</code> list</p>
+<h4 id="slashoperator"><code>slashOperator</code></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice Struct containing parameters to slashing</span>
+<span class="cm"> * @param operator the address to slash</span>
+<span class="cm"> * @param operatorSetId the ID of the operatorSet the operator is being slashed on behalf of</span>
+<span class="cm"> * @param strategies the set of strategies to slash</span>
+<span class="cm"> * @param wadsToSlash the parts in 1e18 to slash, this will be proportional to the operator&#39;s</span>
+<span class="cm"> * slashable stake allocation for the operatorSet</span>
+<span class="cm"> * @param description the description of the slashing provided by the AVS for legibility</span>
+<span class="cm"> */</span>
+<span class="kt">struct</span><span class="w"> </span><span class="nv">SlashingParams</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32</span><span class="w"> </span><span class="nv">operatorSetId</span><span class="p">;</span>
+<span class="w">    </span>IStrategy<span class="p">[]</span><span class="w"> </span>strategies<span class="p">;</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="p">[]</span><span class="w"> </span>wadsToSlash<span class="p">;</span>
+<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="nv">description</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @notice Called by an AVS to slash an operator in a given operator set. The operator must be registered</span>
+<span class="cm"> * and have slashable stake allocated to the operator set.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param avs The AVS address initiating the slash.</span>
+<span class="cm"> * @param params The slashing parameters, containing:</span>
+<span class="cm"> *  - operator: The operator to slash.</span>
+<span class="cm"> *  - operatorSetId: The ID of the operator set the operator is being slashed from.</span>
+<span class="cm"> *  - strategies: Array of strategies to slash allocations from (must be in ascending order).</span>
+<span class="cm"> *  - wadsToSlash: Array of proportions to slash from each strategy (must be between 0 and 1e18).</span>
+<span class="cm"> *  - description: Description of why the operator was slashed.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @dev For each strategy:</span>
+<span class="cm"> *      1. Reduces the operator&#39;s current allocation magnitude by wadToSlash proportion.</span>
+<span class="cm"> *      2. Reduces the strategy&#39;s max and encumbered magnitudes proportionally.</span>
+<span class="cm"> *      3. If there is a pending deallocation, reduces it proportionally.</span>
+<span class="cm"> *      4. Updates the operator&#39;s shares in the DelegationManager.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @dev Small slashing amounts may not result in actual token burns due to</span>
+<span class="cm"> *      rounding, which will result in small amounts of tokens locked in the contract</span>
+<span class="cm"> *      rather than fully burning through the burn mechanism.</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">slashOperator</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">avs</span><span class="p">,</span>
+<span class="w">    </span>SlashingParams<span class="w"> </span>calldata<span class="w"> </span>params
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>onlyWhenNotPaused<span class="p">(</span>PAUSED_OPERATOR_SLASHING<span class="p">)</span>
+<span class="w">    </span>checkCanCall<span class="p">(</span>avs<span class="p">)</span>
+</code></pre></div>
+<p><em>Note: this method can be called directly by an AVS, or by a caller authorized by the AVS. See <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a> for details.</em></p>
+<p>AVSs use slashing as a punitive disincentive for misbehavior. For details and examples of how slashing works, see <a href="https://github.com/eigenfoundation/ELIPs/blob/main/ELIPs/ELIP-002.md#slashing-of-unique-stake">ELIP-002#Slashing of Unique Stake</a>. Note that whatever slashing criteria an AVS decides on, the only criteria enforced by the <code>AllocationManager</code> are those detailed above (see <a href="#evaluating-whether-an-allocation-is-slashable">Evaluating Whether an Allocation is "Slashable"</a>).</p>
+<p>In order to slash an eligible operator, the AVS specifies which operator set the operator belongs to, the <code>strategies</code> the operator should be slashed for, and for each strategy, the <em>proportion of the operator's allocated magnitude</em> that should be slashed (given by <code>wadsToSlash</code>). An optional <code>description</code> string allows the AVS to add context to the slash.</p>
+<p>Once triggered in the <code>AllocationManager</code>, slashing is instant and irreversible. For each slashed strategy, the operator's <code>maxMagnitude</code> and <code>encumberedMagnitude</code> are decreased, and the allocation made to the given operator set has its <code>currentMagnitude</code> reduced. See <a href="">TODO - Accounting Doc</a> for details on how slashed amounts are calculated.</p>
+<p>There are two edge cases to note for this method:
+1. In the process of slashing an <code>operator</code> for a given <code>strategy</code>, if the <code>Allocation</code> being slashed has a <code>currentMagnitude</code> of 0, the call will NOT revert. Instead, the <code>strategy</code> is skipped and slashing continues with the next <code>strategy</code> listed. This is to prevent an edge case where slashing occurs on or around a deallocation's <code>effectBlock</code> -- if the call reverted, the entire slash would fail. Skipping allows any valid slashes to be processed without requiring resubmission.
+2. If the <code>operator</code> has a pending, non-completable deallocation, the deallocation's <code>pendingDiff</code> is reduced proportional to the slash. This ensures that when the deallocation is completed, less <code>encumberedMagnitude</code> is freed.</p>
+<p>Once slashing is processed for a strategy, <a href="https://github.com/eigenfoundation/ELIPs/blob/main/ELIPs/ELIP-002.md#burning-of-slashed-funds">slashed stake is burned via the <code>DelegationManager</code></a>.</p>
+<p><em>Effects</em>:
+* Given an <code>operator</code> and <code>operatorSet</code>, then for each <code>params.strategies</code> element and its corresponding <code>allocation</code>:
+    * Calculates magnitude to slash by multiplying current magnitude by the provided <code>wadsToSlash</code>
+    * Reduce <code>allocation.currentMagnitude</code> by the slashed magnitude
+        * Emit an <code>AllocationUpdated</code> event
+    * Reduce the operator's <code>encumberedMagnitude</code> for this strategy by the slashed magnitude
+        * Emit an <code>EncumberedMagnitudeUpdated</code> event
+    * Push an entry to the operator's <code>maxMagnitudeHistory</code>, reducing their <code>maxMagnitude</code> by the slashed magnitude
+        * Emit a <code>MaxMagnitudeUpdated</code> event
+    * If the <code>allocation</code> has a pending, non-completable deallocation, additionally reduce <code>allocation.pendingDiff</code> by the same proportion and emit an <code>AllocationUpdated</code> event
+    * If the <code>allocation</code> now has a <code>currentMagnitude</code> of 0:
+        * Removes <code>strategy</code> from the <code>allocatedStrategies[operator][operatorSetKey]</code> list
+        * If this list now has a length of 0, remove <code>operatorSetKey</code> from <code>allocatedSets[operator]</code>
+    * Calls <a href="../DelegationManager/#slashoperatorshares"><code>DelegationManager.slashOperatorShares</code></a>
+* Emit an <code>OperatorSlashed</code> event</p>
+<p><em>Requirements</em>:
+* Pause status MUST NOT be set: <code>PAUSED_OPERATOR_SLASHING</code>
+* Caller MUST be authorized, either as the AVS itself or an admin/appointee (see <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a>)
+* Operator set MUST be registered for the AVS
+* Operator MUST BE slashable, i.e.:
+    * Operator is registered for the operator set, <em>OR</em>
+    * The operator's <code>DEALLOCATION_DELAY</code> has not yet completed
+* <code>params.strategies</code> MUST be in ascending order (to ensure no duplicates)
+* <code>params.strategies.length</code> MUST be equal to <code>params.wadsToSlash.length</code>
+* For each <code>params.strategies</code> element:
+    * <code>wadsToSlash</code> MUST be within the bounds <code>(0, 1e18]</code>
+    * Operator set MUST contain the strategy</p>
+<hr />
+<h2 id="config">Config</h2>
+<p><strong>Methods:</strong>
+* <a href="#setallocationdelay"><code>setAllocationDelay</code></a>
+* <a href="#setavsregistrar"><code>setAVSRegistrar</code></a></p>
+<h4 id="setallocationdelay"><code>setAllocationDelay</code></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice Called by the delegation manager OR an operator to set an operator&#39;s allocation delay.</span>
+<span class="cm"> * This is set when the operator first registers, and is the number of blocks between an operator</span>
+<span class="cm"> * allocating magnitude to an operator set, and the magnitude becoming slashable.</span>
+<span class="cm"> * @param operator The operator to set the delay on behalf of.</span>
+<span class="cm"> * @param delay the allocation delay in blocks</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">setAllocationDelay</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint32</span><span class="w"> </span><span class="nv">delay</span>
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+</code></pre></div>
+<p><em>Note: IF NOT CALLED BY THE <code>DelegationManager</code>, this method can be called directly by an operator, or by a caller authorized by the operator. See <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a> for details.</em></p>
+<p>This function sets an operator's allocation delay, in blocks. This delay can be updated by the operator once set. Both the initial setting of this value and any further updates <em>take <code>ALLOCATION_CONFIGURATION_DELAY</code> blocks</em> to take effect. Because having a delay is a requirement to allocating slashable stake, this effectively means that once the slashing release goes live, no one will be able to allocate slashable stake for at least <code>ALLOCATION_CONFIGURATION_DELAY</code> blocks.</p>
+<p>The <code>DelegationManager</code> calls this upon operator registration for all new operators created after the slashing release. For operators that existed in the <code>DelegationManager</code> <em>prior</em> to the slashing release, <strong>they will need to call this method to configure an allocation delay prior to allocating slashable stake to any AVS</strong>.</p>
+<p>The allocation delay's primary purpose is to give stakers delegated to an operator the chance to withdraw their stake before the operator can change the risk profile to something they're not comfortable with. However, operators can choose to configure this delay however they want - including setting it to 0.</p>
+<p><em>Effects</em>:
+* Sets the operator's <code>pendingDelay</code> to the proposed <code>delay</code>, and save the <code>effectBlock</code> at which the <code>pendingDelay</code> can be activated
+    * <code>effectBlock = uint32(block.number) + ALLOCATION_CONFIGURATION_DELAY + 1</code>
+* If the operator has a <code>pendingDelay</code>, and if the <code>effectBlock</code> has passed, sets the operator's <code>delay</code> to the <code>pendingDelay</code> value
+    * This also sets the <code>isSet</code> boolean to <code>true</code> to indicate that the operator's <code>delay</code>, even if 0, was set intentionally
+* Emits an <code>AllocationDelaySet</code> event</p>
+<p><em>Requirements</em>:
+* Caller MUST BE either the DelegationManager, or a registered operator
+    * An admin and/or appointee for the operator can also call this function (see <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a>)</p>
+<h4 id="setavsregistrar"><code>setAVSRegistrar</code></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @notice Called by an AVS to configure the address that is called when an operator registers</span>
+<span class="cm"> * or is deregistered from the AVS&#39;s operator sets. If not set (or set to 0), defaults</span>
+<span class="cm"> * to the AVS&#39;s address.</span>
+<span class="cm"> * @param registrar the new registrar address</span>
+<span class="cm"> */</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">setAVSRegistrar</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">avs</span><span class="p">,</span>
+<span class="w">    </span>IAVSRegistrar<span class="w"> </span>registrar
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>checkCanCall<span class="p">(</span>avs<span class="p">)</span>
+</code></pre></div>
+<p><em>Note: this method can be called directly by an AVS, or by a caller authorized by the AVS. See <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a> for details.</em></p>
+<p>Sets the <code>registrar</code> for a given <code>avs</code>. Note that if the registrar is set to 0, <code>getAVSRegistrar</code> will return the AVS's address.</p>
+<p>The avs registrar is called when operators register to or deregister from an operator set. From <a href="../../src/contracts/interfaces/IAVSRegistrar.sol"><code>IAVSRegistrar.sol</code></a>, the avs registrar should use the following interface:</p>
+<div class="highlight"><pre><span></span><code>interface<span class="w"> </span>IAVSRegistrar<span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/**</span>
+<span class="cm">     * @notice Called by the AllocationManager when an operator wants to register</span>
+<span class="cm">     * for one or more operator sets. This method should revert if registration</span>
+<span class="cm">     * is unsuccessful.</span>
+<span class="cm">     * @param operator the registering operator</span>
+<span class="cm">     * @param operatorSetIds the list of operator set ids being registered for</span>
+<span class="cm">     * @param data arbitrary data the operator can provide as part of registration</span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">registerOperator</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32</span><span class="p">[]</span><span class="w"> </span>calldata<span class="w"> </span>operatorSetIds<span class="p">,</span><span class="w"> </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">calldata</span><span class="w"> </span>data<span class="p">)</span><span class="w"> </span><span class="kt">external</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/**</span>
+<span class="cm">     * @notice Called by the AllocationManager when an operator is deregistered from</span>
+<span class="cm">     * one or more operator sets. If this method reverts, it is ignored.</span>
+<span class="cm">     * @param operator the deregistering operator</span>
+<span class="cm">     * @param operatorSetIds the list of operator set ids being deregistered from</span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">deregisterOperator</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">operator</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32</span><span class="p">[]</span><span class="w"> </span>calldata<span class="w"> </span>operatorSetIds<span class="p">)</span><span class="w"> </span><span class="kt">external</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Note that when an operator registers, registration will FAIL if the call to <code>IAVSRegistrar</code> reverts. However, when an operator deregisters, a revert in <code>deregisterOperator</code> is ignored.</p>
+<p><em>Effects</em>:
+* Sets <code>_avsRegistrar[avs]</code> to <code>registrar</code>
+* Emits an <code>AVSRegistrarSet</code> event</p>
+<p><em>Requirements</em>:
+* Caller MUST be authorized, either as the AVS itself or an admin/appointee (see <a href="../../permissions/PermissionController/"><code>PermissionController.md</code></a>)</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        <div class="md-footer-copyright__highlight">
+          All presentation content belongs to their respective owners
+        </div>
+      </div>
+      <div class="md-footer-social">
+        <a href="https://github.com/KupiaSec" target="_blank" rel="noopener" title="GitHub" class="md-footer-social__link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+        </a>
+        <a href="https://x.com/KupiaSecurity" target="_blank" rel="noopener" title="Twitter" class="md-footer-social__link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "header.autohide", "navigation.top", "navigation.footer"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>

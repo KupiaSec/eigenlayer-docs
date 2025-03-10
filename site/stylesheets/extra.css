@@ -1,0 +1,56 @@
+/* Footer customization */
+.md-footer {
+  background-color: #1a237e;
+  color: #ffffff;
+}
+
+.md-footer-meta {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.md-footer-copyright__highlight {
+  color: #82b1ff;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.md-footer-social {
+  padding: 0.6rem 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.md-footer-social__link {
+  margin-left: 1.2rem;
+  color: #ffffff;
+  transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Fix for social icons visibility */
+.md-footer-social__link svg {
+  fill: currentColor;
+  width: 24px;
+  height: 24px;
+  display: block;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.md-footer-social__link:hover {
+  color: #82b1ff;
+}
+
+.md-footer a {
+  color: #82b1ff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.md-footer a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
